@@ -1,0 +1,44 @@
+.custom-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  height: 60%;
+  width: 60%;
+  /* margin-bottom: 15px; */
+  /* border: 1px solid black; */
+  clear: both;
+}
+
+.custom-date:hover {
+  filter: brightness(0.9);
+}
+
+.calendar-container {
+  margin: 20px;
+  display: flex;
+  flex-flow: row;
+}
+
+.legend {
+  margin-top: 20px;
+}
+
+.legend h3 {
+  margin-bottom: 10px;
+}
+
+.legend ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  color: #000;
+  font-weight: bold;
+}
