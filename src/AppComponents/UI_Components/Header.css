@@ -1,0 +1,21 @@
+.header-style {
+  background-color: black;
+  height: 84px;
+  width: 100%;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.header-components-style {
+  display: flex; /* Aktywacja układu Flexbox */
+  justify-content: space-around; /* Równe odstępy między elementami */
+  align-items: center; /* Wycentrowanie elementów w pionie */
+  height: 100%; /* Dopasowanie do wysokości nagłówka */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.wieczorek-logo-style {
+  margin-bottom: 5px;
+  height: 50px;
+}
