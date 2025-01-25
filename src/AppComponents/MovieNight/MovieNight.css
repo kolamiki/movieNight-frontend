@@ -1,0 +1,9 @@
+.movie-night-order {
+}
+
+.movie-night-position {
+  display: flex;
+  margin-top: 90px;
+  flex-wrap: wrap;
+  justify-content: center;
+}

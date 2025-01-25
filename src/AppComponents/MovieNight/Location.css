@@ -1,0 +1,24 @@
+.location-position {
+  margin-left: 40px;
+}
+
+.triangle {
+  width: 25px;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 100px solid white; /* Kolor trójkąta */
+}
+
+.location-frame {
+  display: flex;
+  /* justify-content: space-around; */
+  /* justify-content: space-between; */
+  align-items: center;
+  border: 3.5px solid;
+  color: white;
+  font-family: Antonio;
+  font-size: 25px;
+  width: 110px;
+  height: 110px;
+}

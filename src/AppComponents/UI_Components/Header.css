@@ -1,6 +1,6 @@
 .header-style {
   background-color: black;
-  height: 84px;
+  height: 110px;
   width: 100%;
   padding-bottom: 0;
   padding-top: 0;
@@ -17,5 +17,38 @@
 
 .wieczorek-logo-style {
   margin-bottom: 5px;
-  height: 50px;
+  height: 60px;
+}
+
+.image-with-text-button {
+  display: flex;
+  align-items: center;
+  border: 1.8px solid;
+  border-color: #ffffffff;
+  padding: 10px;
+  cursor: pointer;
+  height: 80px;
+}
+
+.header-button-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 15px;
+}
+
+.header-button-text {
+  font-size: 18px;
+  color: #ffffffff;
+  font-family: Antonio;
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.p-card-body {
+  padding-top: 0px;
 }

@@ -1,0 +1,10 @@
+.category {
+  font-family: Antonio;
+  color: white;
+  font-size: 70px;
+  display: flex;
+  align-items: center;
+  border: 3px solid;
+  width: 445px;
+  justify-content: space-around;
+}

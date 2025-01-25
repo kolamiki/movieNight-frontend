@@ -1,0 +1,13 @@
+.date-position {
+  margin-left: 40px;
+}
+.date {
+  display: flex;
+  align-items: center;
+  font-family: Antonio;
+  color: white;
+  border: 3.5px solid;
+  font-size: 64px;
+  height: 170px;
+  width: 135px;
+}
