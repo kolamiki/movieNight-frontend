@@ -1,13 +1,24 @@
 .winner-movie-header {
   display: flex;
+  position: relative;
+  /* margin-left: 70%; */
   font-family: Antonio;
   color: white;
   /* justify-content: space-around; */
-  width: 500px;
+  width: 400px;
   margin-left: 25px;
 }
 
 .movie-details-carousel {
-  width: 500px;
+  width: 400px;
   height: 750px;
+}
+
+.movie-in-carousel-cover {
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  position: relative;
+  /* justify-content: center;
+  align-items: center; */
 }

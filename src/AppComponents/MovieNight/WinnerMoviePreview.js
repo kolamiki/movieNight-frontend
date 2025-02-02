@@ -6,17 +6,34 @@ import Header from "../UI_Components/Header";
 
 function WinnerMoviePreview() {
   const [winnerMovieDetails, setWinnerMovieDetails] = useState([
-    { id: 1, value: "Napis1" },
+    { id: 1, value: "http://127.0.0.1:8000/media/bigCovers/The_Substance.jpg" },
+    { id: 2, value: "Napis2" },
+    { id: 3, value: "Napis3" },
   ]);
 
-  //!!! DODAĆ POBIERANIE OBRAZÓW Z BAZY DANYCH
+  //!!! DODAĆ POBIERANIE OBRAZÓW Z BAZY DANYCH - Dodane.
+  //!!!! DODAĆ API ORIGIN, JAK BĘDZIE OGARNIĘTA STRONA GŁÓWNA
+
+  function display_proper_movie_detail(movieDetail) {
+    if (movieDetail.id === 1) {
+      return (
+        <img
+          className="movie-in-carousel-cover "
+          src={movieDetail.value}
+          alt="WinnerPicture"
+        />
+      );
+    }
+    if (movieDetail.id === 2) {
+      return <p>{movieDetail.value} - OPIS</p>;
+    }
+    if (movieDetail.id === 3) {
+      return <p>{movieDetail.value} - ZWIASTUN</p>;
+    }
+  }
 
   const winnerMovieTemplate = (winnerMovie) => {
-    return (
-      <p>
-        {winnerMovie.value}, {winnerMovie.id}
-      </p>
-    );
+    return <>{display_proper_movie_detail(winnerMovie)}</>;
   };
 
   return (

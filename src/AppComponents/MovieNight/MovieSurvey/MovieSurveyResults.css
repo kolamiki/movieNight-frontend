@@ -1,0 +1,13 @@
+.movie-survey-results {
+  margin-top: 100px;
+  font-family: Antonio;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  position: relative;
+  /* flex-direction: row; */
+  /* align-items: center; */
+  border: 3px solid;
+  width: 445px;
+  justify-content: center;
+}

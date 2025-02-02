@@ -3,7 +3,50 @@
 
 .movie-night-position {
   display: flex;
+  position: absolute;
   margin-top: 90px;
   flex-wrap: wrap;
   justify-content: center;
 }
+/* .movie-night-position {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  color: white;
+} */
+/* .movie-night-position {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: white;
+}
+
+.movie-night-position > .category {
+  font-size: 2.5rem;
+  font-weight: bold;
+  border: 2px solid white;
+  padding: 8px 24px;
+}
+
+.movie-night-position > .info-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.movie-night-position .location {
+  background-color: white;
+  color: black;
+  padding: 8px 16px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+}
+
+.movie-night-position .date {
+  border: 2px solid white;
+  padding: 8px 16px;
+  font-size: 2rem;
+  text-align: center;
+} */

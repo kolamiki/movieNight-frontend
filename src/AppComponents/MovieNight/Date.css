@@ -3,7 +3,11 @@
 }
 .date {
   display: flex;
-  align-items: center;
+  position: relative;
+  flex-direction: row;
+  justify-content: center; /* Wyśrodkowanie poziome */
+  align-items: center; /* Wyśrodkowanie pionowe */
+  text-align: center;
   font-family: Antonio;
   color: white;
   border: 3.5px solid;
