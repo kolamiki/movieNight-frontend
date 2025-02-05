@@ -12,8 +12,14 @@ const primeReactConfig = {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+const foo = document.getElementsByTagName("WieczorekFilmowy")[0];
+const apiorigin = foo.attributes?.getNamedItem("apiorigin")?.value;
+
+console.log("apiOrigin", document);
+
 root.render(
   <PrimeReactProvider value={primeReactConfig}>
-    <App />
+    <App apiOrigin={apiorigin} />
+    {/* <App /> */}
   </PrimeReactProvider>
 );

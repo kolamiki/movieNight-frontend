@@ -4,15 +4,22 @@ import { Carousel } from "primereact/carousel";
 import "./WinnerMoviePreview.css";
 import Header from "../UI_Components/Header";
 
-function WinnerMoviePreview() {
+function WinnerMoviePreview({ apiOrigin }) {
   const [winnerMovieDetails, setWinnerMovieDetails] = useState([
     { id: 1, value: "http://127.0.0.1:8000/media/bigCovers/The_Substance.jpg" },
     { id: 2, value: "Napis2" },
     { id: 3, value: "Napis3" },
   ]);
 
-  //!!! DODAĆ POBIERANIE OBRAZÓW Z BAZY DANYCH - Dodane.
-  //!!!! DODAĆ API ORIGIN, JAK BĘDZIE OGARNIĘTA STRONA GŁÓWNA
+  //!!! DODAĆ POBIERANIE DANYCH Z WYKORZYTANIEM APIORIGIN
+
+  function get_winner_movie_details(apiOrigin) {
+    // This function gets the winner movie details and assign fetched data to the winnerMovieDetail state
+  }
+
+  useEffect(function () {
+    fetch(`${apiOrigin}`);
+  }, []);
 
   function display_proper_movie_detail(movieDetail) {
     if (movieDetail.id === 1) {

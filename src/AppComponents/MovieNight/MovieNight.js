@@ -13,10 +13,12 @@ import Location from "./Location";
 import Date from "./Date";
 import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
 
-function MovieNight() {
+function MovieNight({ apiOrigin }) {
   const [movieNight, setMovieNight] = useState({});
 
-  useEffect(function () {}, []);
+  useEffect(function () {
+    // fetch();
+  }, []);
 
   return (
     <div className="movie-night-position">
@@ -38,10 +40,10 @@ function MovieNight() {
       </div>
       <div class="grid">
         <div class="col-5">
-          <WinnerMoviePreview />
+          <WinnerMoviePreview apiOrigin={apiOrigin} />
         </div>
         <div class="col-7">
-          <MovieSurveyResults />
+          <MovieSurveyResults apiOrigin={apiOrigin} />
         </div>
       </div>
     </div>
