@@ -3,10 +3,11 @@
 
 .movie-night-position {
   display: flex;
-  position: absolute;
-  margin-top: 90px;
+  position: relative;
+  margin-top: 150px;
   flex-wrap: wrap;
   justify-content: center;
+  /* overflow-y: auto; */
 }
 /* .movie-night-position {
   display: flex;

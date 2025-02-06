@@ -13,12 +13,29 @@ function WinnerMoviePreview({ apiOrigin }) {
 
   //!!! DODAĆ POBIERANIE DANYCH Z WYKORZYTANIEM APIORIGIN
 
-  function get_winner_movie_details(apiOrigin) {
-    // This function gets the winner movie details and assign fetched data to the winnerMovieDetail state
+  function format_movie_description(plot, rating) {
+    return;
+  }
+
+  function get_winner_movie_details(apiOrigin, winnerMovieNightName) {
+    // This function gets the winner movie details and assigns fetched data to the winnerMovieDetail state
+    fetch(`${apiOrigin}getMovieNight/${winnerMovieNightName}/`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data["winnerMovie"]);
+        // Add fetched data to the state
+        setWinnerMovieDetails(() => {
+          return [
+            { id: 1, value: `${apiOrigin}${data["winnerMovie"]["coverBig"]}` },
+            { id: 2, value: data["winnerMovie"]["plot"] },
+            { id: 3, value: data["winnerMovie"]["trailerUrl"] },
+          ];
+        });
+      });
   }
 
   useEffect(function () {
-    fetch(`${apiOrigin}`);
+    get_winner_movie_details(apiOrigin, "Test");
   }, []);
 
   function display_proper_movie_detail(movieDetail) {
@@ -32,7 +49,7 @@ function WinnerMoviePreview({ apiOrigin }) {
       );
     }
     if (movieDetail.id === 2) {
-      return <p>{movieDetail.value} - OPIS</p>;
+      return <p className="movie-in-carousel-plot">{movieDetail.value}</p>;
     }
     if (movieDetail.id === 3) {
       return <p>{movieDetail.value} - ZWIASTUN</p>;

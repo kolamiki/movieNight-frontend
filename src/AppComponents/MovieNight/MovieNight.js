@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Carousel } from "primereact/carousel";
-import "primeflex/primeflex.css";
+import "/node_modules/primeflex/primeflex.css";
 
 //*** IMPORT STYLES */
 import "./MovieNight.css";
@@ -36,7 +36,7 @@ function MovieNight({ apiOrigin }) {
             </p>
           </Date>
         </div>
-        {/* <div class="col-2"></div> */}
+        <div class="col-2"></div>
       </div>
       <div class="grid">
         <div class="col-5">

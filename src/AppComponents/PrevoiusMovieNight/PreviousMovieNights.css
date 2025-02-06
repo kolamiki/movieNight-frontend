@@ -1,0 +1,8 @@
+.previous-movie-night {
+  display: flex;
+  position: relative;
+  height: 175px;
+  width: 25%;
+  margin-left: 25%;
+  padding-bottom: 25px;
+}

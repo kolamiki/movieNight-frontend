@@ -6,12 +6,18 @@ import "./MovieSurveyResults.css";
 
 import MovieSurveyCandidate from "./MovieSurveyCandidate";
 
-function MovieSurveyResults() {
+function MovieSurveyResults({ apiOrigin }) {
   const [movieCandidates, setMovieCandidates] = useState([
     { movieTitle: "Movie1", votes: 10 },
     { movieTitle: "Movie2", votes: 5 },
     { movieTitle: "Movie3", votes: 1 },
   ]); // use setMovieCandidates to assign fetched voting results
+
+  function get_movie_night_candidates(apiOrigin) {
+    // This function gets the movie night candidates
+  }
+
+  useEffect(function () {}, []);
 
   console.log("Movie Candidates", movieCandidates[1]);
   return (
