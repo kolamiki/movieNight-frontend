@@ -2,41 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "primereact/carousel";
 
 import "./WinnerMoviePreview.css";
-import Header from "../UI_Components/Header";
 
-function WinnerMoviePreview({ apiOrigin }) {
-  const [winnerMovieDetails, setWinnerMovieDetails] = useState([
-    { id: 1, value: "http://127.0.0.1:8000/media/bigCovers/The_Substance.jpg" },
-    { id: 2, value: "Napis2" },
-    { id: 3, value: "Napis3" },
-  ]);
-
+function WinnerMoviePreview({ apiOrigin, currentMovieNightWinnerDetails }) {
   //!!! DODAĆ POBIERANIE DANYCH Z WYKORZYTANIEM APIORIGIN
 
-  function format_movie_description(plot, rating) {
-    return;
-  }
+  console.log("Winner Movie details", currentMovieNightWinnerDetails);
 
-  function get_winner_movie_details(apiOrigin, winnerMovieNightName) {
-    // This function gets the winner movie details and assigns fetched data to the winnerMovieDetail state
-    fetch(`${apiOrigin}getMovieNight/${winnerMovieNightName}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data["winnerMovie"]);
-        // Add fetched data to the state
-        setWinnerMovieDetails(() => {
-          return [
-            { id: 1, value: `${apiOrigin}${data["winnerMovie"]["coverBig"]}` },
-            { id: 2, value: data["winnerMovie"]["plot"] },
-            { id: 3, value: data["winnerMovie"]["trailerUrl"] },
-          ];
-        });
-      });
-  }
+  function structure_winner_movie_details(
+    apiOrigin,
+    currentMovieNightWinnerDetails
+  ) {
+    // This function structured the winner movie details to the proper format, which is compatible with Carousel component
 
-  useEffect(function () {
-    get_winner_movie_details(apiOrigin, "Test");
-  }, []);
+    return [
+      {
+        id: 1,
+        value: `${apiOrigin}${currentMovieNightWinnerDetails?.coverBig}`,
+      },
+      { id: 2, value: currentMovieNightWinnerDetails?.plot },
+      { id: 3, value: currentMovieNightWinnerDetails?.trailerUrl },
+    ];
+  }
 
   function display_proper_movie_detail(movieDetail) {
     if (movieDetail.id === 1) {
@@ -61,11 +47,14 @@ function WinnerMoviePreview({ apiOrigin }) {
   };
 
   return (
-    <div>
+    <div className="winner-movie-content">
       <h1 className="winner-movie-header">OGLĄDAMY</h1>
       <Carousel
         className="movie-details-carousel"
-        value={winnerMovieDetails}
+        value={structure_winner_movie_details(
+          apiOrigin,
+          currentMovieNightWinnerDetails
+        )}
         numVisible={1}
         numScroll={1}
         orientation="horizontal"

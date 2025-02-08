@@ -10,12 +10,12 @@
 }
 
 .movie-details-carousel {
-  width: 400px;
-  height: 500px;
+  width: 450px;
+  height: 570px;
 }
 
 .movie-in-carousel-cover {
-  width: 80%;
+  width: 90%;
   margin-left: 10%;
   display: flex;
   position: relative;
@@ -26,4 +26,8 @@
 .movie-in-carousel-plot {
   font-family: Antonio;
   color: white;
+}
+
+.winner-movie-content {
+  margin-right: 20px;
 }

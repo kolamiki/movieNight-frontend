@@ -4,3 +4,10 @@
   border: solid 5px;
   background: transparent !important;
 }
+
+.movie-candidate-row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: center;
+  justify-items: center;
+}

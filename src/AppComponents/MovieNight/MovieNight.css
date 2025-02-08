@@ -4,6 +4,8 @@
 .movie-night-position {
   display: flex;
   position: relative;
+  flex-direction: column;
+  align-items: center;
   margin-top: 150px;
   flex-wrap: wrap;
   justify-content: center;
