@@ -7,7 +7,9 @@
 
 .movie-candidate-row {
   padding-top: 10px;
-  padding-bottom: 10px;
-  justify-content: center;
-  justify-items: center;
+  padding-bottom: 20px;
+  /* justify-content: center;
+  justify-items: center; */
+  align-items: center;
+  display: flex;
 }

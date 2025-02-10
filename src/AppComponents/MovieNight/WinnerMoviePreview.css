@@ -10,13 +10,13 @@
 }
 
 .movie-details-carousel {
-  width: 450px;
-  height: 570px;
+  width: 490px;
+  height: 650px;
 }
 
 .movie-in-carousel-cover {
-  width: 90%;
-  margin-left: 10%;
+  width: 100%;
+  /* margin-left: 5%; */
   display: flex;
   position: relative;
   /* justify-content: center;
@@ -29,5 +29,5 @@
 }
 
 .winner-movie-content {
-  margin-right: 20px;
+  margin-right: 55px;
 }
