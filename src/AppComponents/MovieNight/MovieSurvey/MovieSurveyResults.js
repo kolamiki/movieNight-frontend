@@ -6,7 +6,11 @@ import "./MovieSurveyResults.css";
 
 import MovieSurveyCandidate from "./MovieSurveyCandidate";
 
-function MovieSurveyResults({ apiOrigin, movieNightCandidatesData }) {
+function MovieSurveyResults({
+  apiOrigin,
+  movieNightCandidatesData,
+  participants,
+}) {
   // useEffect(function () {}, []);
 
   return (
@@ -21,7 +25,7 @@ function MovieSurveyResults({ apiOrigin, movieNightCandidatesData }) {
               movieTitle={movieCandidate?.title}
               moviePosterMini={movieCandidate?.coverSmall}
               votes={7} //{movieCandidate?.votes}
-              participants={10}
+              participants={participants}
             />
           );
         })}

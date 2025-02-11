@@ -21,6 +21,8 @@ function App({ apiOrigin }) {
     get_movie_night_details(apiOrigin, "Test");
   }, []);
 
+  //!!!!  DODAĆ POBIERANIE GŁOSÓW NA FILM!!!!!
+
   return (
     <>
       <div className="gradient-background"></div>

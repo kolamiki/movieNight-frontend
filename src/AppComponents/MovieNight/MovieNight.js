@@ -14,6 +14,7 @@ import Date from "./Date";
 import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
 
 function MovieNight({ apiOrigin, movieNightDetails }) {
+  console.log("movie night details", movieNightDetails);
   return (
     <div className="movie-night-position">
       <div class="grid">
@@ -21,14 +22,10 @@ function MovieNight({ apiOrigin, movieNightDetails }) {
           <Category>{movieNightDetails?.categoryName}</Category>
         </div>
         <driv class="col-2">
-          <Location>Krzysiu i Marta</Location>
+          <Location>{movieNightDetails?.location?.locationName}</Location>
         </driv>
         <div class="col-3">
-          <Date>
-            <p>
-              30 <br /> luty
-            </p>
-          </Date>
+          <Date>{movieNightDetails?.date}</Date>
         </div>
         <div class="col-2"></div>
       </div>
@@ -43,6 +40,7 @@ function MovieNight({ apiOrigin, movieNightDetails }) {
           <MovieSurveyResults
             apiOrigin={apiOrigin}
             movieNightCandidatesData={movieNightDetails?.candidates}
+            participants={movieNightDetails?.participants.length}
           />
         </div>
       </div>

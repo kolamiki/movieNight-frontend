@@ -1,17 +1,24 @@
 .date-position {
   margin-left: 40px;
-}
-.date {
   display: flex;
   position: relative;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center; /* Wyśrodkowanie poziome */
   align-items: center; /* Wyśrodkowanie pionowe */
   text-align: center;
-  font-family: Antonio;
-  color: white;
   border: 3.5px solid;
-  font-size: 64px;
+  color: white;
   height: 170px;
   width: 135px;
+}
+.date-day {
+  font-family: Antonio;
+  color: white;
+  font-size: 70px;
+}
+
+.date-month {
+  font-family: Antonio;
+  color: white;
+  font-size: 32px;
 }

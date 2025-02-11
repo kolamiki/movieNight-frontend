@@ -4,8 +4,6 @@ import { Carousel } from "primereact/carousel";
 import "./WinnerMoviePreview.css";
 
 function WinnerMoviePreview({ apiOrigin, currentMovieNightWinnerDetails }) {
-  //!!! DODAĆ POBIERANIE DANYCH Z WYKORZYTANIEM APIORIGIN
-
   console.log("Winner Movie details", currentMovieNightWinnerDetails);
 
   function structure_winner_movie_details(
