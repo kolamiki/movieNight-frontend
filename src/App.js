@@ -11,7 +11,7 @@ function App({ apiOrigin }) {
   const [movieNightDetails, setMovieNightDetails] = useState(null);
 
   function get_movie_night_details(apiOrigin, movieNightName) {
-    fetch(`${apiOrigin}/getMovieNight/${movieNightName}/`)
+    fetch(`${apiOrigin}/showMovieNight/${movieNightName}/`)
       .then((response) => response.json())
       .then((data) => {
         setMovieNightDetails(() => data);

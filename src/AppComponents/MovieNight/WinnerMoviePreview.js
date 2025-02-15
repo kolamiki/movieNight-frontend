@@ -15,7 +15,7 @@ function WinnerMoviePreview({ apiOrigin, currentMovieNightWinnerDetails }) {
     return [
       {
         id: 1,
-        value: `${apiOrigin}${currentMovieNightWinnerDetails?.coverBig}`,
+        value: `${currentMovieNightWinnerDetails?.coverBig}`,
       },
       { id: 2, value: currentMovieNightWinnerDetails?.plot },
       { id: 3, value: currentMovieNightWinnerDetails?.trailerUrl },

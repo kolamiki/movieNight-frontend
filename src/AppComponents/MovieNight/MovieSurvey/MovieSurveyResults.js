@@ -10,8 +10,11 @@ function MovieSurveyResults({
   apiOrigin,
   movieNightCandidatesData,
   participants,
+  votes,
 }) {
   // useEffect(function () {}, []);
+
+  console.log("Votes", votes);
 
   return (
     <div className="movie-survey-results">
@@ -24,7 +27,7 @@ function MovieSurveyResults({
               apiOrigin={apiOrigin}
               movieTitle={movieCandidate?.title}
               moviePosterMini={movieCandidate?.coverSmall}
-              votes={7} //{movieCandidate?.votes}
+              votes={votes}
               participants={participants}
             />
           );
