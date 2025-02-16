@@ -42,6 +42,7 @@ function MovieNight({ apiOrigin, movieNightDetails }) {
             movieNightCandidatesData={movieNightDetails?.candidates}
             participants={movieNightDetails?.participants.length}
             votes={movieNightDetails?.votes}
+            isMovieNightActive={movieNightDetails?.isActive}
           />
         </div>
       </div>

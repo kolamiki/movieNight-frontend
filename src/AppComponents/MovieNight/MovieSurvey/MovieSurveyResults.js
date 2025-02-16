@@ -11,6 +11,7 @@ function MovieSurveyResults({
   movieNightCandidatesData,
   participants,
   votes,
+  isMovieNightActive,
 }) {
   // useEffect(function () {}, []);
 
@@ -29,6 +30,7 @@ function MovieSurveyResults({
               moviePosterMini={movieCandidate?.coverSmall}
               votes={votes}
               participants={participants}
+              isMovieNightActive={isMovieNightActive}
             />
           );
         })}

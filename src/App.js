@@ -29,7 +29,7 @@ function App({ apiOrigin }) {
       <Header apiOrigin={apiOrigin} />
       {/* <div className="content"> */}
       <MovieNight apiOrigin={apiOrigin} movieNightDetails={movieNightDetails} />
-      <PreviousMovieNights />
+      {/* <PreviousMovieNights /> */}
       {/* <CalendarWithRanges /> */}
       {/* </div> */}
     </>
