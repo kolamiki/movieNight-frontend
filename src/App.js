@@ -8,19 +8,6 @@ import MovieNight from "./AppComponents/MovieNight/MovieNight";
 import PreviousMovieNights from "./AppComponents/PrevoiusMovieNight/PreviousMovieNights";
 import { useEffect, useState } from "react";
 function App({ apiOrigin }) {
-  const [movieNightDetails, setMovieNightDetails] = useState(null);
-
-  function get_movie_night_details(apiOrigin, movieNightName) {
-    fetch(`${apiOrigin}/showMovieNight/${movieNightName}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        setMovieNightDetails(() => data);
-      });
-  }
-  useEffect(function () {
-    get_movie_night_details(apiOrigin, "Test");
-  }, []);
-
   //!!!!  DODAĆ POBIERANIE GŁOSÓW NA FILM!!!!!
 
   return (
@@ -28,7 +15,7 @@ function App({ apiOrigin }) {
       <div className="gradient-background"></div>
       <Header apiOrigin={apiOrigin} />
       {/* <div className="content"> */}
-      <MovieNight apiOrigin={apiOrigin} movieNightDetails={movieNightDetails} />
+      <MovieNight apiOrigin={apiOrigin} />
       {/* <PreviousMovieNights /> */}
       {/* <CalendarWithRanges /> */}
       {/* </div> */}

@@ -1,18 +1,22 @@
 import { Button } from "primereact/button";
 import React, { useState, useEffect } from "react";
 
+import axios from "axios";
+
 import "./MovieSurveyCandidate.css";
 import ProgressBar from "./ProgressBar";
 
 function MovieSurveyCandidate({
   apiOrigin,
   movieTitle,
+  movieNightCategory,
   moviePosterMini,
   votes,
   participants,
   isMovieNightActive,
+  setIsVoted,
 }) {
-  const [isVoted, setIsVoted] = useState(false);
+  // const [isVoted, setIsVoted] = useState(false);
   const [loggedUser, setLoggedUser] = useState("tester");
 
   //!! DODAĆ GŁOSOWANIE
@@ -21,7 +25,17 @@ function MovieSurveyCandidate({
   //! Dodać funkcję spradzającą, czy użytkownik oddał głos na jeden film
 
   function send_vote() {
-    // This function sends the vote to the selected movie
+    const post_data = async () => {
+      const response = await axios.post(
+        `${apiOrigin}/createVote/`,
+        { user: loggedUser, movie: movieTitle, movieNight: movieNightCategory },
+        { headers: { "Content-Type": "application/json" } }
+      );
+    };
+
+    // Change voted status to True
+    setIsVoted(true);
+    post_data();
   }
 
   function count_votes() {
@@ -59,6 +73,7 @@ function MovieSurveyCandidate({
               height: "30%",
               display: "flex",
               color: "black", // Kolor tekstu
+              fontSize: "20px",
               // mixBlendMode: "destination-out",
             }}
             label="Twój Głos"
@@ -72,6 +87,7 @@ function MovieSurveyCandidate({
               backgroundColor: "transparent",
               height: "30%",
               display: "flex",
+              fontSize: "20px",
             }}
             label="Głosuj"
             disabled={isMovieNightActive === false}

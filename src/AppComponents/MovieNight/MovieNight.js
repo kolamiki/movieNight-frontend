@@ -13,8 +13,32 @@ import Location from "./Location";
 import Date from "./Date";
 import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
 
-function MovieNight({ apiOrigin, movieNightDetails }) {
+function MovieNight({ apiOrigin }) {
+  const [isVoted, setIsVoted] = useState(true);
+
+  const [movieNightDetails, setMovieNightDetails] = useState(null);
+
+  function get_movie_night_details(apiOrigin, movieNightName) {
+    fetch(`${apiOrigin}/showMovieNight/${movieNightName}/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMovieNightDetails(() => data);
+      });
+  }
+  useEffect(
+    function () {
+      if (isVoted) {
+        get_movie_night_details(apiOrigin, "Test");
+
+        // Change status isVoted to false
+        setIsVoted(false);
+      }
+    },
+    [isVoted]
+  );
+
   console.log("movie night details", movieNightDetails);
+
   return (
     <div className="movie-night-position">
       <div class="grid">
@@ -39,10 +63,12 @@ function MovieNight({ apiOrigin, movieNightDetails }) {
         <div class="col-7">
           <MovieSurveyResults
             apiOrigin={apiOrigin}
+            movieNightCategory={movieNightDetails?.categoryName}
             movieNightCandidatesData={movieNightDetails?.candidates}
             participants={movieNightDetails?.participants.length}
             votes={movieNightDetails?.votes}
             isMovieNightActive={movieNightDetails?.isActive}
+            setIsVoted={setIsVoted}
           />
         </div>
       </div>

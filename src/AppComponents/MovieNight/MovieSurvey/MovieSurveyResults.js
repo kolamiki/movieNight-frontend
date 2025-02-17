@@ -9,13 +9,17 @@ import MovieSurveyCandidate from "./MovieSurveyCandidate";
 function MovieSurveyResults({
   apiOrigin,
   movieNightCandidatesData,
+  movieNightCategory,
   participants,
   votes,
   isMovieNightActive,
+  setIsVoted,
 }) {
   // useEffect(function () {}, []);
 
   console.log("Votes", votes);
+
+  // useEffect(function () {}, [isVoted === true]);
 
   return (
     <div className="movie-survey-results">
@@ -27,10 +31,12 @@ function MovieSurveyResults({
               key={index}
               apiOrigin={apiOrigin}
               movieTitle={movieCandidate?.title}
+              movieNightCategory={movieNightCategory}
               moviePosterMini={movieCandidate?.coverSmall}
               votes={votes}
               participants={participants}
               isMovieNightActive={isMovieNightActive}
+              setIsVoted={setIsVoted}
             />
           );
         })}
