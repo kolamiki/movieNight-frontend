@@ -1,0 +1,11 @@
+.avatar {
+  border: 1px;
+  width: 15px;
+  height: 15px;
+}
+
+.username {
+  font-family: Antonio;
+  font-size: 16px;
+  color: white;
+}

@@ -40,36 +40,38 @@ function MovieNight({ apiOrigin }) {
   console.log("movie night details", movieNightDetails);
 
   return (
-    <div className="movie-night-position">
-      <div class="grid">
-        <div class="col-6">
-          <Category>{movieNightDetails?.categoryName}</Category>
+    <div class="animate__animated animate__fadeIn">
+      <div className="movie-night-position">
+        <div class="grid">
+          <div class="col-6">
+            <Category>{movieNightDetails?.categoryName}</Category>
+          </div>
+          <driv class="col-2">
+            <Location>{movieNightDetails?.location?.locationName}</Location>
+          </driv>
+          <div class="col-3">
+            <Date>{movieNightDetails?.date}</Date>
+          </div>
+          <div class="col-2"></div>
         </div>
-        <driv class="col-2">
-          <Location>{movieNightDetails?.location?.locationName}</Location>
-        </driv>
-        <div class="col-3">
-          <Date>{movieNightDetails?.date}</Date>
-        </div>
-        <div class="col-2"></div>
-      </div>
-      <div class="grid">
-        <div class="col-5">
-          <WinnerMoviePreview
-            apiOrigin={apiOrigin}
-            currentMovieNightWinnerDetails={movieNightDetails?.winnerMovie}
-          />
-        </div>
-        <div class="col-7">
-          <MovieSurveyResults
-            apiOrigin={apiOrigin}
-            movieNightCategory={movieNightDetails?.categoryName}
-            movieNightCandidatesData={movieNightDetails?.candidates}
-            participants={movieNightDetails?.participants.length}
-            votes={movieNightDetails?.votes}
-            isMovieNightActive={movieNightDetails?.isActive}
-            setIsVoted={setIsVoted}
-          />
+        <div class="grid">
+          <div class="col-5">
+            <WinnerMoviePreview
+              apiOrigin={apiOrigin}
+              currentMovieNightWinnerDetails={movieNightDetails?.winnerMovie}
+            />
+          </div>
+          <div class="col-7">
+            <MovieSurveyResults
+              apiOrigin={apiOrigin}
+              movieNightCategory={movieNightDetails?.categoryName}
+              movieNightCandidatesData={movieNightDetails?.candidates}
+              participants={movieNightDetails?.participants.length}
+              votes={movieNightDetails?.votes}
+              isMovieNightActive={movieNightDetails?.isActive}
+              setIsVoted={setIsVoted}
+            />
+          </div>
         </div>
       </div>
     </div>

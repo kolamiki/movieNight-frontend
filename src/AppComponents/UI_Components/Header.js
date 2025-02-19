@@ -7,14 +7,22 @@ import { Card } from "primereact/card";
 
 import "./Header.css";
 
-function Header() {
+function Header({
+  apiOrigin,
+  loginActive,
+  setLoginActive,
+  addBookedDaysActive,
+  setAddBookedDaysActive,
+  addMovieNightActive,
+  setMovieNightActive,
+}) {
   return (
     <Card className="header-style">
       <div className="header-components-style">
         <WieczorekLogo />
-        <AddWieczorek />
-        <AvailableDays />
-        <LogIn />
+        <AddWieczorek setMovieNightActive={setMovieNightActive} />
+        <AvailableDays setAddBookedDaysActive={setAddBookedDaysActive} />
+        <LogIn setLoginActive={setLoginActive} />
       </div>
     </Card>
   );
@@ -41,9 +49,12 @@ function ImageWithTextButton({ imageSource, altText, text }) {
   );
 }
 
-function AddWieczorek() {
+function AddWieczorek({ setMovieNightActive }) {
   return (
-    <div className="image-with-text-button">
+    <div
+      className="image-with-text-button"
+      onClick={() => setMovieNightActive(true)}
+    >
       <img
         src=".\Header_Icons\Klaps_Logo_v1.png"
         alt="Dodaj Wieczorek Logo"
@@ -57,9 +68,12 @@ function AddWieczorek() {
   );
 }
 
-function AvailableDays() {
+function AvailableDays({ setAddBookedDaysActive }) {
   return (
-    <div className="image-with-text-button">
+    <div
+      className="image-with-text-button"
+      onClick={() => setAddBookedDaysActive(true)}
+    >
       <img
         className="header-button-image"
         src=".\Header_Icons\Book_Logo_v1.png"
@@ -72,9 +86,9 @@ function AvailableDays() {
   );
 }
 
-function LogIn() {
+function LogIn({ setLoginActive }) {
   return (
-    <div className="login-button">
+    <div className="login-button" onClick={() => setLoginActive(true)}>
       <img
         className="header-button-image"
         src=".\Header_Icons\LogIn_Logo_v1.png"
