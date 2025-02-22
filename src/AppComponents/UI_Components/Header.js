@@ -16,6 +16,13 @@ function Header({
   addMovieNightActive,
   setMovieNightActive,
 }) {
+  const [isUserLogged, setIsUserLogged] = useState(false);
+
+  //!! ZMIENIĆ IKONĘ "ZALOGUJ SIĘ"  NA NAZWĘ UŻYTKOWNIKA W ZALEŻNOŚCI OD OBECNOŚCI W LOCAL STORAGE USERNAME
+  //! Dokończyć funkcję w useEffect do sprawdzania, czy użytkownik jest zalogowany - pobierz z localstorage informacje o username i tokenach
+
+  useEffect(function () {}, []);
+
   return (
     <Card className="header-style">
       <div className="header-components-style">
