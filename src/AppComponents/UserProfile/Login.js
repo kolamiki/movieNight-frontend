@@ -45,6 +45,9 @@ function Login({
       setLoggedUser(username);
 
       alert("Successful login");
+
+      // Close login window
+      setLoginActive(false);
     } catch (err) {
       setError("Nieprawidłowe dane logowania");
     }
@@ -74,6 +77,9 @@ function Login({
       onHide={() => {
         if (!loginActive) return;
         setLoginActive(false);
+        setUsername("");
+        setPassword("");
+        setError(false);
       }}
       style={{ fontFamily: "Antonio", width: "40%", height: "40%" }}
       header="ZALOGUJ SIĘ"
