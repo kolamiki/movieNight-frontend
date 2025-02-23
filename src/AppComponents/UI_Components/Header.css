@@ -55,3 +55,61 @@
 .p-card-body {
   padding-top: 0px;
 }
+
+.profile-shortcut-main {
+  font-family: Antonio;
+  color: white !important;
+  font-family: 12px;
+  cursor: pointer;
+  background-color: black;
+}
+
+.p-menubar {
+  background: black !important;
+  color: white !important;
+  border: 0px; /* Opcjonalnie usunięcie obramowania */
+  font-family: Antonio;
+}
+
+/* Styl dla rozwijanego menu */
+.p-menu {
+  background: black !important;
+  color: white !important;
+  border: 0px;
+}
+
+/* Styl dla opcji w menu */
+.p-menuitem {
+  color: white !important;
+  background: black;
+  border: 0px;
+}
+.p-menuitem-text {
+  color: white !important;
+}
+.p-menuitem-content {
+  color: white !important;
+  background: black;
+  border: 0px;
+}
+.p-menuitem-content:hover {
+  color: white !important;
+  background: #222 !important;
+  border: none;
+}
+
+.p-menuitem:hover {
+  background: #222 !important; /* Lekko ciemniejsze tło po najechaniu */
+  color: white !important;
+}
+.p-submenu-list {
+  background: black;
+  color: white;
+}
+
+.profile-shortcut-children {
+  font-family: Antonio;
+  color: white;
+  font-family: 12px;
+  z-index: 5;
+}

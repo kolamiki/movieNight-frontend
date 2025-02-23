@@ -15,14 +15,13 @@ function MovieSurveyCandidate({
   participants,
   isMovieNightActive,
   setIsVoted,
+  loggedUser,
 }) {
   // const [isVoted, setIsVoted] = useState(false);
-  const [loggedUser, setLoggedUser] = useState("tester");
+  // const [loggedUser, setLoggedUser] = useState("tester");
 
-  //!! DODAĆ GŁOSOWANIE
-  //! Dodać zczytywanie głosów od aktualnie zalogowanego użytownika
-  // ! Dodać funkcję wysyłającą głos na film
-  //! Dodać funkcję spradzającą, czy użytkownik oddał głos na jeden film
+  //!! DODAĆ
+  //! Popup, gdy niezalogowany użytkownik najedzie myszką na przycisk GŁOSUJ
 
   function send_vote() {
     const post_data = async () => {
@@ -77,7 +76,7 @@ function MovieSurveyCandidate({
               // mixBlendMode: "destination-out",
             }}
             label="Twój Głos"
-            disabled={isMovieNightActive === false}
+            disabled={isMovieNightActive === false || loggedUser === null}
           />
         ) : (
           <Button
@@ -90,7 +89,7 @@ function MovieSurveyCandidate({
               fontSize: "20px",
             }}
             label="Głosuj"
-            disabled={isMovieNightActive === false}
+            disabled={isMovieNightActive === false || loggedUser === null}
             onClick={() => send_vote()}
           />
         )}

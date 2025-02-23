@@ -13,6 +13,11 @@ function App({ apiOrigin }) {
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
   const [addMovieNightActive, setMovieNightActive] = useState(false);
 
+  const [loggedUser, setLoggedUser] = useState(null);
+
+  // Login states
+  const [isUserLogged, setIsUserLogged] = useState(false);
+
   return (
     <>
       <div className="gradient-background"></div>
@@ -24,14 +29,19 @@ function App({ apiOrigin }) {
         setAddBookedDaysActive={setAddBookedDaysActive}
         addMovieNightActive={addMovieNightActive}
         setMovieNightActive={setMovieNightActive}
+        isUserLogged={isUserLogged}
+        setIsUserLogged={setIsUserLogged}
+        setLoggedUser={setLoggedUser}
       />
       {/* <div className="content"> */}
       <Login
         apiOrigin={apiOrigin}
         loginActive={loginActive}
         setLoginActive={setLoginActive}
+        setIsUserLogged={setIsUserLogged}
+        setLoggedUser={setLoggedUser}
       />
-      <MovieNight apiOrigin={apiOrigin} />
+      <MovieNight apiOrigin={apiOrigin} loggedUser={loggedUser} />
       {/* <PreviousMovieNights /> */}
       {/* <CalendarWithRanges /> */}
       {/* </div> */}

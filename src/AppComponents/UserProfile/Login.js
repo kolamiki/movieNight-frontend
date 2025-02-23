@@ -11,7 +11,13 @@ import axios from "axios";
 import "./Login.css";
 //!! DOPRACOWAĆ FORMULARZ LOGOWANIA
 
-function Login({ apiOrigin, loginActive, setLoginActive }) {
+function Login({
+  apiOrigin,
+  loginActive,
+  setLoginActive,
+  setIsUserLogged,
+  setLoggedUser,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -35,6 +41,8 @@ function Login({ apiOrigin, loginActive, setLoginActive }) {
       localStorage.setItem("accessToken", access);
       localStorage.setItem("refreshToken", refresh);
       localStorage.setItem("username", username);
+      setIsUserLogged(true);
+      setLoggedUser(username);
 
       alert("Successful login");
     } catch (err) {

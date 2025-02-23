@@ -2,26 +2,46 @@ import React, { useEffect, useState } from "react";
 import "animate.css";
 
 import { Card } from "primereact/card";
+import { Menubar } from "primereact/menubar";
+import "primeicons/primeicons.css";
 
 // import "./index.css";
 
 import "./Header.css";
+import { Button } from "primereact/button";
+// import { classNames } from "primereact/utils";
 
 function Header({
   apiOrigin,
   loginActive,
   setLoginActive,
+  isUserLogged,
+  setIsUserLogged,
   addBookedDaysActive,
   setAddBookedDaysActive,
   addMovieNightActive,
   setMovieNightActive,
+  setLoggedUser,
 }) {
-  const [isUserLogged, setIsUserLogged] = useState(false);
-
   //!! ZMIENIĆ IKONĘ "ZALOGUJ SIĘ"  NA NAZWĘ UŻYTKOWNIKA W ZALEŻNOŚCI OD OBECNOŚCI W LOCAL STORAGE USERNAME
   //! Dokończyć funkcję w useEffect do sprawdzania, czy użytkownik jest zalogowany - pobierz z localstorage informacje o username i tokenach
 
-  useEffect(function () {}, []);
+  const check_if_user_is_logged = () => {
+    const username = localStorage.getItem("username");
+    setIsUserLogged(username !== null);
+  };
+
+  // Wywołanie efektu na start i przy zmianie `isUserLogged`
+  useEffect(() => {
+    check_if_user_is_logged();
+    console.log("Effect z isUserLogged");
+  }, [isUserLogged]);
+
+  // Wywołanie tylko raz przy załadowaniu komponentu
+  useEffect(() => {
+    check_if_user_is_logged();
+    console.log("Effect bez isUserLogged");
+  }, []);
 
   return (
     <Card className="header-style">
@@ -29,7 +49,16 @@ function Header({
         <WieczorekLogo />
         <AddWieczorek setMovieNightActive={setMovieNightActive} />
         <AvailableDays setAddBookedDaysActive={setAddBookedDaysActive} />
-        <LogIn setLoginActive={setLoginActive} />
+
+        {isUserLogged ? (
+          <ProfileShortcut
+            username={localStorage.getItem("username")}
+            setIsUserLogged={setIsUserLogged}
+            setLoggedUser={setLoggedUser}
+          />
+        ) : (
+          <LogIn setLoginActive={setLoginActive} />
+        )}
       </div>
     </Card>
   );
@@ -103,5 +132,52 @@ function LogIn({ setLoginActive }) {
       />
       <p className="header-button-text">Zaloguj się</p>
     </div>
+  );
+}
+
+function ProfileShortcut({ username, setIsUserLogged, setLoggedUser }) {
+  const menuOptions = [
+    {
+      label: username,
+      items: [
+        {
+          label: "Twój profil",
+          icon: "pi pi-user",
+          command: () => alert("Podgląd Profilu jest w trakcie rozbudowy."),
+        },
+        {
+          label: "Ustawienia",
+          icon: "pi pi-cog",
+          command: () => alert("Ustawienia profilu są w trakcie rozbudowy."),
+        },
+        {
+          label: "Wyloguj się",
+          icon: "pi pi-sign-out",
+          command: () => logout(),
+        },
+      ],
+    },
+  ];
+
+  function logout() {
+    // Remove items from local storage
+    localStorage.removeItem("username");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken;");
+
+    // Change state isLoggedUser to false and
+    setIsUserLogged(false);
+    setLoggedUser(null);
+  }
+
+  return (
+    <Menubar
+      // style={{
+      //   fontFamily: "Antonio",
+      //   backgroundColor: "black",
+      //   color: "white",
+      // }}
+      model={menuOptions}
+    />
   );
 }

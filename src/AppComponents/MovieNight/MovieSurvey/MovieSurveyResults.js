@@ -14,12 +14,11 @@ function MovieSurveyResults({
   votes,
   isMovieNightActive,
   setIsVoted,
+  loggedUser,
 }) {
   // useEffect(function () {}, []);
 
-  console.log("Votes", votes);
-
-  // useEffect(function () {}, [isVoted === true]);
+  // console.log("Votes", votes);
 
   return (
     <div className="movie-survey-results">
@@ -37,6 +36,7 @@ function MovieSurveyResults({
               participants={participants}
               isMovieNightActive={isMovieNightActive}
               setIsVoted={setIsVoted}
+              loggedUser={loggedUser}
             />
           );
         })}

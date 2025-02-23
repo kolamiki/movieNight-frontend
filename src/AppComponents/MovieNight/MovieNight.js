@@ -13,7 +13,7 @@ import Location from "./Location";
 import Date from "./Date";
 import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
 
-function MovieNight({ apiOrigin }) {
+function MovieNight({ apiOrigin, loggedUser }) {
   const [isVoted, setIsVoted] = useState(true);
 
   const [movieNightDetails, setMovieNightDetails] = useState(null);
@@ -34,7 +34,7 @@ function MovieNight({ apiOrigin }) {
         setIsVoted(false);
       }
     },
-    [isVoted]
+    [isVoted, loggedUser]
   );
 
   console.log("movie night details", movieNightDetails);
@@ -46,9 +46,9 @@ function MovieNight({ apiOrigin }) {
           <div class="col-6">
             <Category>{movieNightDetails?.categoryName}</Category>
           </div>
-          <driv class="col-2">
+          <div class="col-2">
             <Location>{movieNightDetails?.location?.locationName}</Location>
-          </driv>
+          </div>
           <div class="col-3">
             <Date>{movieNightDetails?.date}</Date>
           </div>
@@ -70,6 +70,7 @@ function MovieNight({ apiOrigin }) {
               votes={movieNightDetails?.votes}
               isMovieNightActive={movieNightDetails?.isActive}
               setIsVoted={setIsVoted}
+              loggedUser={loggedUser}
             />
           </div>
         </div>
