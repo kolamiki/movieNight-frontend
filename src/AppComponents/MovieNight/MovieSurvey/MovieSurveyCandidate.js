@@ -1,6 +1,8 @@
 import { Button } from "primereact/button";
 import React, { useState, useEffect } from "react";
 
+import { Tooltip } from "primereact/tooltip";
+
 import axios from "axios";
 
 import "./MovieSurveyCandidate.css";
@@ -63,35 +65,47 @@ function MovieSurveyCandidate({
   function render_vote_button() {
     return (
       <>
-        {check_is_voted() ? (
-          <Button
-            style={{
-              fontFamily: "Antonio",
-              border: "solid 1px",
-              backgroundColor: "white",
-              height: "30%",
-              display: "flex",
-              color: "black", // Kolor tekstu
-              fontSize: "20px",
-              // mixBlendMode: "destination-out",
-            }}
-            label="Twój Głos"
-            disabled={isMovieNightActive === false || loggedUser === null}
-          />
+        {loggedUser === null ? (
+          <Tooltip target=".button-disabled" mouseTrack mouseTrackTop={10}>
+            Zaloguj się, aby zagłosować
+          </Tooltip>
         ) : (
-          <Button
-            style={{
-              fontFamily: "Antonio",
-              border: "solid 1px",
-              backgroundColor: "transparent",
-              height: "30%",
-              display: "flex",
-              fontSize: "20px",
-            }}
-            label="Głosuj"
-            disabled={isMovieNightActive === false || loggedUser === null}
-            onClick={() => send_vote()}
-          />
+          ""
+        )}
+        {check_is_voted() ? (
+          <div className={"button" + (loggedUser === null ? "-disabled" : "")}>
+            <Button
+              style={{
+                fontFamily: "Antonio",
+                border: "solid 1px",
+                backgroundColor: "white",
+                height: "30%",
+                display: "flex",
+                color: "black", // Kolor tekstu
+                fontSize: "20px",
+                // mixBlendMode: "destination-out",
+              }}
+              label="Twój Głos"
+              disabled={isMovieNightActive === false || loggedUser === null}
+            />
+          </div>
+        ) : (
+          <div className={"button" + (loggedUser === null ? "-disabled" : "")}>
+            <Button
+              // className={"button" + (loggedUser === null ? "-disabled" : "")}
+              style={{
+                fontFamily: "Antonio",
+                border: "solid 1px",
+                backgroundColor: "transparent",
+                height: "30%",
+                display: "flex",
+                fontSize: "20px",
+              }}
+              label="Głosuj"
+              disabled={isMovieNightActive === false || loggedUser === null}
+              onClick={() => send_vote()}
+            />
+          </div>
         )}
       </>
     );

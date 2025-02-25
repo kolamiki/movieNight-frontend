@@ -43,7 +43,9 @@ function Login({
       localStorage.setItem("username", username);
       setIsUserLogged(true);
       setLoggedUser(username);
-
+      // Clear states
+      setUsername("");
+      setPassword("");
       alert("Successful login");
 
       // Close login window

@@ -28,7 +28,12 @@ function Header({
 
   const check_if_user_is_logged = () => {
     const username = localStorage.getItem("username");
-    setIsUserLogged(username !== null);
+
+    const isLogged = username !== null;
+    if (isLogged) {
+      setIsUserLogged(true);
+      setLoggedUser(username);
+    }
   };
 
   // Wywołanie efektu na start i przy zmianie `isUserLogged`
@@ -163,7 +168,7 @@ function ProfileShortcut({ username, setIsUserLogged, setLoggedUser }) {
     // Remove items from local storage
     localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken;");
+    localStorage.removeItem("refreshToken");
 
     // Change state isLoggedUser to false and
     setIsUserLogged(false);

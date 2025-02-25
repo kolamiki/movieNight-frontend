@@ -1,0 +1,50 @@
+.next-button {
+  font-family: Antonio;
+}
+.p-button {
+  font-family: Antonio;
+  background: black;
+  border-color: #222222;
+}
+
+.p-button.p-button-secondary:not(:disabled):hove {
+  background: #222222;
+}
+
+.p-stepper-title {
+  font-family: Antonio;
+  font-size: 18px;
+  color: white;
+}
+
+.p-stepper-number {
+  font-family: Antonio;
+  border-radius: 0px;
+  border: 1px solid;
+  border-color: white;
+  /* background-color: black; */
+}
+
+.p-stepper-header.p-highlight .p-stepper-number {
+  background-color: black;
+  color: white;
+}
+
+.p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-separator {
+  background-color: black;
+}
+
+.p-dialog-header {
+  background: #222222;
+}
+
+.p-dialog-content {
+  background: #222222;
+}
+
+.p-stepper-action {
+  background: #222222;
+}
+.p-stepper-panels {
+  background-color: #222222;
+}

@@ -38,6 +38,7 @@ function MovieNight({ apiOrigin, loggedUser }) {
   );
 
   console.log("movie night details", movieNightDetails);
+  console.log("loggedUser in MovieNight", loggedUser);
 
   return (
     <div class="animate__animated animate__fadeIn">
