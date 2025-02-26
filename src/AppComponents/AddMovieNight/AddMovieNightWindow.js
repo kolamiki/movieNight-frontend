@@ -27,8 +27,8 @@ function AddMovieNightWindow({
       }}
       style={{
         fontFamily: "Antonio",
-        width: "60%",
-        height: "70%",
+        width: "750px",
+        height: "800px",
         background: "#222222",
       }}
     >
@@ -37,11 +37,11 @@ function AddMovieNightWindow({
         style={{ flexBasis: "50rem", background: "#222222" }}
       >
         <StepperPanel header="Światła" style={{ fontFamily: "Antonio" }}>
-          <div className="flex flex-column h-12rem">
-            <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-              <Lights />
-            </div>
-          </div>
+          {/* <div className="flex flex-column h-12rem"> */}
+          {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
+          <Lights apiOrigin={apiOrigin} />
+          {/* </div> */}
+          {/* </div> */}
           <div className="flex pt-4 justify-content-end">
             <Button
               className="next-button"
