@@ -7,28 +7,22 @@ import "/node_modules/primeflex/primeflex.css";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
+import { Calendar } from "primereact/calendar";
 
 import "./Lights.css";
 import getCSRFToken from "../../get_token";
 
-function Lights({ apiOrigin }) {
+function Lights({ apiOrigin, locationsList }) {
   const [title, setTitle] = useState("");
-  const [locationsList, setLocationsList] = useState([]);
+
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
+
   const [description, setDescription] = useState("");
 
-  useEffect(function () {
-    const csrfToken = getCSRFToken();
-
-    async function get_locations() {
-      fetch(`${apiOrigin}/getLocations/`)
-        .then((response) => response.json())
-        .then((data) => setLocationsList(data));
-    }
-
-    get_locations();
-  }, []);
+  // useEffect(function () {
+  //   console.log("update kalendarza");
+  // }, []);
 
   return (
     <>
@@ -55,18 +49,23 @@ function Lights({ apiOrigin }) {
       <div class="formgrid grid" style={{ marginLeft: "15px" }}>
         <div class="field col">
           <p className="light-form">Data</p>
-          <InputText
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+          <Calendar
+            value={date}
+            onChange={(e) => setDate(e.value)}
+            locale="pl"
+            // localeOption={plLocale}
+            dateFormat="dd/mm/yy"
           />
         </div>
         <div class="field col">
           <p className="light-form">Czy wiesz, że...</p>
-          <p>Tu będzie ciekawostka</p>
+          <MovieTrivia apiOrigin={apiOrigin} />
         </div>
       </div>
-      <div class="formgrid grid" style={{ marginLeft: "15px" }}>
+      <div
+        class="formgrid grid"
+        style={{ marginLeft: "15px", marginTop: "-45px" }}
+      >
         <div class="field col">
           <p className="light-form">Opis</p>
           <InputTextarea
@@ -85,7 +84,29 @@ function Lights({ apiOrigin }) {
 export default Lights;
 
 function MovieTrivia({ apiOrigin }) {
+  const [trivia, setTrivia] = useState("");
+  const [triviaSource, setTriviaSource] = useState("");
+
+  function get_random_number(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   useEffect(function () {
-    // Get movie trivia from database
+    fetch(`${apiOrigin}/getTrivia/`)
+      .then((response) => response.json())
+      .then((data) => {
+        const triviaNumber = get_random_number(0, data.length - 1);
+        setTrivia(data[triviaNumber].triviaContent);
+        setTriviaSource(data[triviaNumber].triviaSource);
+      });
   }, []);
+
+  return (
+    <>
+      <p className="movie-trivia-content">{trivia}</p>
+      <p className="movie-trivia-source">{triviaSource}</p>
+    </>
+  );
 }

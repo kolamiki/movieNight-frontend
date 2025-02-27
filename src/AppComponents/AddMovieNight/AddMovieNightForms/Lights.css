@@ -3,3 +3,15 @@
   color: white;
   font-size: 25px;
 }
+
+.movie-trivia-content {
+  font-family: Antonio;
+  color: white;
+  font-size: 18px;
+}
+
+.movie-trivia-source {
+  font-family: Antonio;
+  color: white;
+  font-size: 15px;
+}

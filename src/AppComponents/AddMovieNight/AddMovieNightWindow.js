@@ -18,6 +18,19 @@ function AddMovieNightWindow({
   setIsMovieNightActive,
 }) {
   const stepperRef = useRef(null);
+
+  const [locationsList, setLocationsList] = useState([]);
+
+  useEffect(function () {
+    async function get_locations() {
+      fetch(`${apiOrigin}/getLocations/`)
+        .then((response) => response.json())
+        .then((data) => setLocationsList(data));
+    }
+
+    get_locations();
+  }, []);
+
   return (
     <Dialog
       visible={isAddMovieNightActive}
@@ -27,7 +40,7 @@ function AddMovieNightWindow({
       }}
       style={{
         fontFamily: "Antonio",
-        width: "750px",
+        width: "800px",
         height: "800px",
         background: "#222222",
       }}
@@ -39,7 +52,7 @@ function AddMovieNightWindow({
         <StepperPanel header="Światła" style={{ fontFamily: "Antonio" }}>
           {/* <div className="flex flex-column h-12rem"> */}
           {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
-          <Lights apiOrigin={apiOrigin} />
+          <Lights apiOrigin={apiOrigin} locationsList={locationsList} />
           {/* </div> */}
           {/* </div> */}
           <div className="flex pt-4 justify-content-end">
