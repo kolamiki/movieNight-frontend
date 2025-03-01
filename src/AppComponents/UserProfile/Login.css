@@ -7,3 +7,19 @@
 .form-position {
   margin-top: 10px;
 }
+
+.login-button {
+}
+
+.login-content {
+  background-color: rgb(34, 34, 34);
+}
+
+.p-dialog-title {
+  color: white;
+}
+
+.sign-in-info {
+  font-family: Antonio;
+  color: white;
+}

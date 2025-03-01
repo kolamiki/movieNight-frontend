@@ -23,8 +23,6 @@ function Header({
   setMovieNightActive,
   setLoggedUser,
 }) {
-  //!! ZMIENIĆ IKONĘ "ZALOGUJ SIĘ"  NA NAZWĘ UŻYTKOWNIKA W ZALEŻNOŚCI OD OBECNOŚCI W LOCAL STORAGE USERNAME
-  //! Dokończyć funkcję w useEffect do sprawdzania, czy użytkownik jest zalogowany - pobierz z localstorage informacje o username i tokenach
 
   const check_if_user_is_logged = () => {
     const username = localStorage.getItem("username");

@@ -9,6 +9,7 @@ import { Password } from "primereact/password";
 import axios from "axios";
 
 import "./Login.css";
+import { Button } from "primereact/button";
 //!! DOPRACOWAĆ FORMULARZ LOGOWANIA
 
 function Login({
@@ -57,10 +58,14 @@ function Login({
 
   function render_sign_in() {
     return (
-      <Card style={{ fontFamily: "Antonio" }} header="Nie masz jeszcze konta?">
-        Zarejestruj się w <b>tym miejscu</b> i weź udział w swoim pierwszym
-        wieczorku.
-      </Card>
+      <div className="sign-in-info">
+        <h3>Nie masz jeszcze konta?</h3>
+        Zarejestruj się w{" "}
+        <b>
+          <u>tym miejscu</u>
+        </b>{" "}
+        i weź udział w swoim pierwszym wieczorku.
+      </div>
     );
   }
 
@@ -83,10 +88,11 @@ function Login({
         setPassword("");
         setError(false);
       }}
+      draggable={false}
       style={{ fontFamily: "Antonio", width: "40%", height: "40%" }}
       header="ZALOGUJ SIĘ"
     >
-      <Card>
+      <div className="login-content">
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleSubmit} className="form-position">
           {/* Login */}
@@ -116,9 +122,12 @@ function Login({
             />
           </div>
           <br />
-          <button type="submit">Zaloguj się</button>
+          <Button type="submit" className="login-button">
+            Zaloguj się
+          </Button>
+          {/* <button type="submit">Zaloguj się</button> */}
         </form>
-      </Card>
+      </div>
       <br />
       {render_sign_in()}
     </Dialog>

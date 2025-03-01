@@ -1,0 +1,49 @@
+.search-movie-header {
+  font-family: Antonio;
+  color: white;
+  font-size: 25px;
+}
+
+.search-results-box {
+  margin-top: 15px;
+  display: flex;
+  position: relative;
+  background-color: white;
+  /* width: 80%; */
+  height: 400px;
+}
+
+.search-movie-candidates {
+  display: flex;
+  justify-content: center;
+  font-family: Antonio;
+  color: white;
+  font-size: 25px;
+}
+
+.candidates-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.empty-candidate-record {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 40px;
+  margin-right: 15px;
+  width: 70%;
+  font-family: Antonio;
+  font-size: 25px;
+  color: white;
+  border: 2px dashed;
+  border-color: white;
+}
+
+.add-button {
+}
+
+.remove-button {
+}

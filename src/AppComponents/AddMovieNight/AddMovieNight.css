@@ -49,3 +49,11 @@
 .p-stepper-panels {
   background-color: #222222;
 }
+
+.button-positions {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 380px;
+}

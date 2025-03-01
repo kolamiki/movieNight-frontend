@@ -41,9 +41,10 @@ function AddMovieNightWindow({
       style={{
         fontFamily: "Antonio",
         width: "800px",
-        height: "800px",
+        height: "820px",
         background: "#222222",
       }}
+      draggable={false}
     >
       <Stepper
         ref={stepperRef}
@@ -67,11 +68,19 @@ function AddMovieNightWindow({
         </StepperPanel>
         <StepperPanel header="Kamera">
           <div className="flex flex-column h-12rem">
-            <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-              <Camera />
-            </div>
+            {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
+            <Camera />
+            {/* </div> */}
           </div>
-          <div className="flex pt-4 justify-content-between">
+          <div
+            // style={{
+            //   display: "flex",
+            //   flexDirection: "row",
+            //   justifyContent: "space-between",
+            // }}
+            className="button-positions"
+            // className="flex  justify-content-between"
+          >
             <Button
               label="Wróć"
               severity="secondary"
