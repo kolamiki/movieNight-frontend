@@ -89,7 +89,7 @@ function Login({
         setError(false);
       }}
       draggable={false}
-      style={{ fontFamily: "Antonio", width: "40%", height: "40%" }}
+      style={{ fontFamily: "Antonio", width: "450px", height: "40%" }}
       header="ZALOGUJ SIĘ"
     >
       <div className="login-content">
