@@ -7,6 +7,8 @@
 .search-results-box {
   margin-top: 15px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   background-color: white;
   /* width: 80%; */
@@ -46,4 +48,39 @@
 }
 
 .remove-button {
+}
+
+.movie-card {
+  display: flex;
+  position: relative;
+  margin: 10px;
+  width: 90%;
+  height: 30%;
+  background-color: rgb(34, 34, 34);
+  font-family: Antonio;
+  color: white;
+  border: 3px solid;
+  border-color: black;
+}
+
+.movie-card-title-and-button {
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-card-cover-column {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  margin-left: 15px;
+}
+
+.movie-card-title {
+  font-size: 19px;
+  margin-top: 12px;
+  margin-bottom: 5px;
 }
