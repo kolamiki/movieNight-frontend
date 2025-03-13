@@ -33,54 +33,60 @@ function Camera({ apiOrigin }) {
   const [fetchedMovies, setFetchedMovie] = useState([]);
   const [pickedMovies, setPickedMovies] = useState(["", "", ""]);
 
-  function handleOnSelectMovie(id) {
+  function handleOnSelectMovie(selectedMovieData) {
     // console.log("clickedId", id);
-    if (id === selectedMovieFromList) {
+    if (selectedMovieData === selectedMovieFromList) {
       setSelectedMovieFromList(null);
     } else {
-      setSelectedMovieFromList(id);
+      setSelectedMovieFromList(selectedMovieData);
     }
   }
 
-  function handleOnAddMovieCandidate(event) {}
+  function handleOnAddMovieCandidate() {
+    if (selectedMovieFromList) {
+      //! DODAĆ DODAWANIE FILMÓW DO LISTY KANDYDATÓW
+    }
+  }
 
   function handleOnRemoveMovieCandidate(event) {}
 
   function render_search_column() {
     if (fetchingStatus.waiting) {
-      return (
-        <p style={{ fontFamily: "Antonio", color: "black" }}>
-          Wpisz conajmniej 4 znaki, aby zacząć szukanie
-        </p>
-      );
+      return ["firstFrame", "secondFrame", "thirdFrame"].map((key) => (
+        <MovieCard searcherKey={key} />
+      ));
+      // <p style={{ fontFamily: "Antonio", color: "black" }}>
+      //   Wpisz conajmniej 4 znaki, aby zacząć szukanie
+      // </p>
     } else if (fetchingStatus.pending) {
-      return (
-        <>
-          <ProgressSpinner />
-          <p>Czekaj... Trwa przeszukiwanie bazy filmów</p>
-        </>
+      return ["loaderPicture", "descriptionTop", "descriptionBottom"].map(
+        (key) => <MovieCard loaderKey={key} />
       );
+      // <>
+      //   <ProgressSpinner />
+      //   <p>Czekaj... Trwa przeszukiwanie bazy filmów</p>
+      // </>
     } else if (fetchingStatus.fetched) {
       return render_found_results();
     }
   }
 
   function render_found_results() {
-    return fetchedMovies.map((movie) => {
-      console.log("movie id", movie.id);
+    return fetchedMovies.map((movie, key) => {
+      // console.log("movie id", movie.id);
       return (
         <div
           onClick={() => {
-            // console.log(movie.id);
-            handleOnSelectMovie(movie.id);
+            // console.log(key);
+            handleOnSelectMovie(movie);
           }}
         >
-          <SearchedMovieCard
+          <MovieCard
             key={movie.id}
             imgAddress={movie.cover}
             title={movie.previewTitle}
             id={movie.id}
-            isClicked={movie.id === selectedMovieFromList ? true : false}
+            isClicked={movie.id === selectedMovieFromList?.id ? true : false}
           />
         </div>
       );
@@ -89,7 +95,9 @@ function Camera({ apiOrigin }) {
 
   function render_empty_candidate(key) {
     // This function renders the field with
-    return <div className="empty-candidate-record">Kandydat {key + 1}</div>;
+    return (
+      <div className="empty-candidate-record fade-in">Kandydat {key + 1}</div>
+    );
   }
 
   function render_candidates_column() {
@@ -99,9 +107,8 @@ function Camera({ apiOrigin }) {
       <div className="candidates-column">
         {" "}
         {pickedMovies.map((movie, key) => {
-          return movie === "" ? render_empty_candidate(key) : "";
+          return movie === "" ? <MovieCard candidateKey={key} /> : "";
         })}
-        ;
       </div>
     );
   }
@@ -147,10 +154,10 @@ function Camera({ apiOrigin }) {
     }
   }, [searchedMovieTitle]);
 
-  useEffect(function () {}, [selectedMovieFromList]);
+  // useEffect(function () {}, [selectedMovieFromList]);
   return (
-    <div class="formgrid grid">
-      <div class="field col col-6">
+    <div className="find-movie-columns">
+      <div className="searcher-column">
         <p className="search-movie-header">Znajdź film</p>
 
         <IconField iconPosition="left">
@@ -164,13 +171,24 @@ function Camera({ apiOrigin }) {
         </IconField>
         <div className="search-results-box">{render_search_column()}</div>
       </div>
-      <div class="field col-1" className="middle-column">
-        <Button className="add-button">&#62;</Button>
-        <Button className="remove-button">&lt;</Button>
+      <div className="middle-column">
+        <Button
+          className="add-button"
+          onClick={() => handleOnAddMovieCandidate()}
+          disabled={selectedMovieFromList === null}
+        >
+          &#62;
+        </Button>
+        <Button
+          className="remove-button"
+          disabled={selectedMovieFromCandidatesList === null}
+        >
+          &lt;
+        </Button>
       </div>
-      <div class="field col-5" style={{ width: "40%" }}>
-        <p className="search-movie-candidates">Kandydaci</p>
-        {render_candidates_column()}
+      <div className="candidates-column">
+        <p className="search-movie-candidates ">Kandydaci</p>
+        <div className="candidates-box">{render_candidates_column()}</div>
       </div>
       {/* <PickList dataKey="id" source={fetchedMovies} /> */}
     </div>
@@ -179,15 +197,15 @@ function Camera({ apiOrigin }) {
 
 export default Camera;
 
-function SearchedMovieCard({ imgAddress, title, id, isClicked }) {
-  // const [isClicked, setIsClicked] = useState(false);
-
-  // function handleOnClick(event) {
-  //   // Change Clicked status to true
-
-  //   setIsClicked((currentStatus) => !currentStatus);
-  // }
-
+function MovieCard({
+  imgAddress,
+  title,
+  id,
+  isClicked,
+  candidateKey,
+  loaderKey,
+  searcherKey,
+}) {
   function render_film_tape_blocks() {
     return (
       <div className="tape-block-column">
@@ -206,34 +224,148 @@ function SearchedMovieCard({ imgAddress, title, id, isClicked }) {
     );
   }
 
-  return (
-    <div class="animate__animated animate__slideInDown">
-      <div className="movie-frame-look">
-        {render_film_tape_blocks()}
+  function render_empty_candidate(key) {
+    // This function renders the field with
+    return (
+      <div className="empty-candidate-record fade-in">Kandydat {key + 1}</div>
+    );
+  }
+
+  function render_movie_data(imgAddress, title) {
+    return (
+      <>
         <div
-          className="movie-card"
-          // onClick={() => handleOnClick()}
-          style={{ backgroundColor: isClicked ? "black" : "" }}
+          className="movie-card-cover-column fade-in"
+          // class="animate__animated animate__fadeIn"
         >
-          <div className="movie-card-cover-column">
-            <img src={imgAddress} alt={`${title} - cover mini`} />
-          </div>
-          <div className="movie-card-title-and-button">
-            <p className="movie-card-title">{title}</p>
-            <Button
-              style={{
-                color: "black",
-                backgroundColor: "white",
-                fontSize: "15px",
-                // marginTop: "2px",
-              }}
-            >
-              Podgląd
-            </Button>
-          </div>
+          <img
+            src={imgAddress}
+            alt={`${title} - cover mini`}
+            // style={{ height: "100%" }}
+          />
         </div>
-        {render_film_tape_blocks()}
+        <div
+          className="movie-card-title-and-button fade-in"
+          // class="animate__animated animate__fadeIn"
+        >
+          <p
+            className="movie-card-title fade-in"
+            style={{
+              display: "flex",
+              position: "relative",
+              // width: "100%",
+            }}
+          >
+            {title}
+          </p>
+          <Button
+            className="fade-in"
+            style={{
+              color: "black",
+              backgroundColor: "white",
+              fontSize: "15px",
+              // marginTop: "2px",
+            }}
+          >
+            Podgląd
+          </Button>
+        </div>
+      </>
+    );
+  }
+
+  function render_loading(key) {
+    if (key === "loaderPicture")
+      return (
+        // <div class="animate__animated animate__fadeIn">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif"
+          alt="loader-picture"
+          className="loading-picture fade-in"
+        />
+        // </div>
+      );
+    //https://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif
+    else if (key === "descriptionTop")
+      return (
+        <p
+          className="fade-in"
+          style={{
+            fontFamily: "Antonio",
+            color: "white",
+            fontSize: "25px",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: "30%",
+          }}
+        >
+          Poczekaj...
+        </p>
+      );
+    else
+      return (
+        <p
+          className="fade-in"
+          style={{
+            fontFamily: "Antonio",
+            color: "white",
+            fontSize: "20px",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: "5%",
+          }}
+        >
+          Trwa przeszukiwanie bazy filmów.
+        </p>
+      );
+  }
+
+  function render_search(key) {
+    if (key === "firstFrame")
+      return <p className="searcher-frame fade-in">Wpisz conajmniej</p>;
+    else if (key === "secondFrame")
+      return (
+        <p
+          className="searcher-frame fade-in"
+          style={{ fontSize: "35px", marginLeft: "30%" }}
+        >
+          4 znaki
+        </p>
+      );
+    else
+      return (
+        <p className="searcher-frame fade-in" style={{ marginLeft: "10%" }}>
+          i zacznij poszukiwania
+        </p>
+      );
+  }
+
+  return (
+    // <div class="animate__animated animate__fadeIn">
+    <div className="movie-frame-look">
+      {render_film_tape_blocks()}
+      <div
+        className="movie-card"
+        // onClick={() => handleOnClick()}
+        style={{ backgroundColor: isClicked ? "black" : "" }}
+      >
+        {!imgAddress && !title && !loaderKey && !searcherKey
+          ? render_empty_candidate(candidateKey)
+          : loaderKey
+          ? render_loading(loaderKey)
+          : searcherKey
+          ? render_search(searcherKey)
+          : render_movie_data(imgAddress, title)}
       </div>
+
+      {render_film_tape_blocks()}
     </div>
+    // </div>
   );
 }

@@ -40,7 +40,7 @@ function AddMovieNightWindow({
       }}
       style={{
         fontFamily: "Antonio",
-        width: "800px",
+        width: "840px",
         height: "820px",
         background: "#222222",
       }}
