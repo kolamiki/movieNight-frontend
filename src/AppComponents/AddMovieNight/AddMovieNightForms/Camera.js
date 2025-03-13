@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { PickList } from "primereact/picklist";
 
 import "./Camera.css";
+
+import "animate.css";
+
 import { InputIcon } from "primereact/inputicon";
 import { IconField } from "primereact/iconfield";
 import { InputText } from "primereact/inputtext";
@@ -20,15 +23,28 @@ function Camera({ apiOrigin }) {
     waiting: true,
   });
 
+  // Selected movie states
+  const [selectedMovieFromList, setSelectedMovieFromList] = useState(null);
+  const [selectedMovieFromCandidatesList, setSelectedMovieFromCandidatesList] =
+    useState(null);
+
   // Searched and Picked Movies Lists
 
   const [fetchedMovies, setFetchedMovie] = useState([]);
   const [pickedMovies, setPickedMovies] = useState(["", "", ""]);
 
-  function onChange(event) {
-    setFetchedMovie(event.source);
-    setPickedMovies(event.target);
+  function handleOnSelectMovie(id) {
+    // console.log("clickedId", id);
+    if (id === selectedMovieFromList) {
+      setSelectedMovieFromList(null);
+    } else {
+      setSelectedMovieFromList(id);
+    }
   }
+
+  function handleOnAddMovieCandidate(event) {}
+
+  function handleOnRemoveMovieCandidate(event) {}
 
   function render_search_column() {
     if (fetchingStatus.waiting) {
@@ -51,24 +67,24 @@ function Camera({ apiOrigin }) {
 
   function render_found_results() {
     return fetchedMovies.map((movie) => {
-      console.log("movie", movie);
+      console.log("movie id", movie.id);
       return (
-        <SearchedMovieCard
-          key={movie.id}
-          imgAddress={movie.cover}
-          title={movie.previewTitle}
-          id={movie.id}
-        />
+        <div
+          onClick={() => {
+            // console.log(movie.id);
+            handleOnSelectMovie(movie.id);
+          }}
+        >
+          <SearchedMovieCard
+            key={movie.id}
+            imgAddress={movie.cover}
+            title={movie.previewTitle}
+            id={movie.id}
+            isClicked={movie.id === selectedMovieFromList ? true : false}
+          />
+        </div>
       );
     });
-
-    {
-      /* <SearchedMovieCard />
-        <SearchedMovieCard />
-        <SearchedMovieCard /> */
-    }
-
-    // </div>
   }
 
   function render_empty_candidate(key) {
@@ -83,7 +99,7 @@ function Camera({ apiOrigin }) {
       <div className="candidates-column">
         {" "}
         {pickedMovies.map((movie, key) => {
-          return movie.length === 0 ? render_empty_candidate(key) : "";
+          return movie === "" ? render_empty_candidate(key) : "";
         })}
         ;
       </div>
@@ -131,9 +147,10 @@ function Camera({ apiOrigin }) {
     }
   }, [searchedMovieTitle]);
 
+  useEffect(function () {}, [selectedMovieFromList]);
   return (
     <div class="formgrid grid">
-      <div class="field col">
+      <div class="field col col-6">
         <p className="search-movie-header">Znajdź film</p>
 
         <IconField iconPosition="left">
@@ -147,7 +164,11 @@ function Camera({ apiOrigin }) {
         </IconField>
         <div className="search-results-box">{render_search_column()}</div>
       </div>
-      <div class="field col">
+      <div class="field col-1" className="middle-column">
+        <Button className="add-button">&#62;</Button>
+        <Button className="remove-button">&lt;</Button>
+      </div>
+      <div class="field col-5" style={{ width: "40%" }}>
         <p className="search-movie-candidates">Kandydaci</p>
         {render_candidates_column()}
       </div>
@@ -158,24 +179,60 @@ function Camera({ apiOrigin }) {
 
 export default Camera;
 
-function SearchedMovieCard({ imgAddress, title, id }) {
-  return (
-    <div className="movie-card">
-      <div className="movie-card-cover-column">
-        <img src={imgAddress} alt={`${title} - cover mini`} />
+function SearchedMovieCard({ imgAddress, title, id, isClicked }) {
+  // const [isClicked, setIsClicked] = useState(false);
+
+  // function handleOnClick(event) {
+  //   // Change Clicked status to true
+
+  //   setIsClicked((currentStatus) => !currentStatus);
+  // }
+
+  function render_film_tape_blocks() {
+    return (
+      <div className="tape-block-column">
+        {[...Array(3)].map((_, index) => (
+          <div
+            key={index}
+            className="tape-block"
+            style={{
+              backgroundColor: isClicked ? "black" : "rgb(34, 34, 34)",
+              border: isClicked ? "1px solid" : "",
+              borderColor: isClicked ? "black" : "",
+            }}
+          ></div>
+        ))}
       </div>
-      <div className="movie-card-title-and-button">
-        <p className="movie-card-title">{title}</p>
-        <Button
-          style={{
-            color: "black",
-            backgroundColor: "white",
-            fontSize: "15px",
-            // marginTop: "2px",
-          }}
+    );
+  }
+
+  return (
+    <div class="animate__animated animate__slideInDown">
+      <div className="movie-frame-look">
+        {render_film_tape_blocks()}
+        <div
+          className="movie-card"
+          // onClick={() => handleOnClick()}
+          style={{ backgroundColor: isClicked ? "black" : "" }}
         >
-          Podgląd
-        </Button>
+          <div className="movie-card-cover-column">
+            <img src={imgAddress} alt={`${title} - cover mini`} />
+          </div>
+          <div className="movie-card-title-and-button">
+            <p className="movie-card-title">{title}</p>
+            <Button
+              style={{
+                color: "black",
+                backgroundColor: "white",
+                fontSize: "15px",
+                // marginTop: "2px",
+              }}
+            >
+              Podgląd
+            </Button>
+          </div>
+        </div>
+        {render_film_tape_blocks()}
       </div>
     </div>
   );

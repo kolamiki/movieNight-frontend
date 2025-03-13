@@ -23,13 +23,6 @@
   font-size: 25px;
 }
 
-.candidates-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 70px;
-}
-
 .empty-candidate-record {
   display: flex;
   justify-content: center;
@@ -44,25 +37,6 @@
   border-color: white;
 }
 
-.add-button {
-}
-
-.remove-button {
-}
-
-.movie-card {
-  display: flex;
-  position: relative;
-  margin: 10px;
-  width: 90%;
-  height: 30%;
-  background-color: rgb(34, 34, 34);
-  font-family: Antonio;
-  color: white;
-  border: 3px solid;
-  border-color: black;
-}
-
 .movie-card-title-and-button {
   display: flex;
   position: relative;
@@ -72,6 +46,30 @@
   align-items: center;
 }
 
+.middle-column {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 25px;
+  /* padding: 25px; */
+}
+
+.add-button {
+  margin-top: 45px;
+  margin-bottom: 25px;
+}
+.remove-button {
+  margin-top: 25px;
+}
+
+.candidates-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
 .movie-card-cover-column {
   display: flex;
   justify-content: center;
@@ -79,8 +77,43 @@
   margin-left: 15px;
 }
 
+.movie-card {
+  display: flex;
+  position: relative;
+  margin: 7px;
+  width: 280px;
+  height: 120px;
+  background-color: rgb(34, 34, 34);
+  font-family: Antonio;
+  color: white;
+  border: 3px solid;
+  border-color: black;
+  cursor: pointer;
+}
+
 .movie-card-title {
   font-size: 19px;
   margin-top: 12px;
   margin-bottom: 5px;
+}
+
+.tape-block-column {
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tape-block {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(34, 34, 34);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.movie-frame-look {
+  display: flex;
+  position: relative;
 }
