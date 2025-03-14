@@ -42,13 +42,55 @@ function Camera({ apiOrigin }) {
     }
   }
 
-  function handleOnAddMovieCandidate() {
-    if (selectedMovieFromList) {
-      //! DODAĆ DODAWANIE FILMÓW DO LISTY KANDYDATÓW
+  function handleOnSelectCandidate(selectedMovieCandidateData) {
+    if (selectedMovieCandidateData === selectedMovieFromCandidatesList) {
+      setSelectedMovieFromCandidatesList(null);
+    } else {
+      setSelectedMovieFromCandidatesList(selectedMovieCandidateData);
     }
   }
 
-  function handleOnRemoveMovieCandidate(event) {}
+  function handleOnAddMovieCandidate() {
+    if (pickedMovies.includes(selectedMovieFromList)) {
+      alert("Ten film jest już na liście!");
+      return;
+    }
+
+    // Find fist free record in the list
+    const emptyIndex = pickedMovies.findIndex((movie) => movie === "");
+
+    if (emptyIndex !== -1) {
+      // Update only first free slot
+      setPickedMovies((currentPickedMovies) => {
+        let newPickedMovies = [...currentPickedMovies];
+        newPickedMovies[emptyIndex] = selectedMovieFromList;
+        return newPickedMovies;
+      });
+      // Unclick selected movie
+      setSelectedMovieFromList(null);
+    } else {
+      alert("Brak miejsca na dodanie nowego filmu.");
+    }
+  }
+
+  function handleOnRemoveMovieCandidate() {
+    // Find clicked movie in the pickedMovies list.
+
+    const clickedMovieIndex = pickedMovies.findIndex(
+      (movie) => movie === selectedMovieFromCandidatesList
+    );
+
+    // Assign empty record to the removed candidate
+    setPickedMovies((currentList) => {
+      let newPickedMoviesList = [...currentList];
+
+      newPickedMoviesList[clickedMovieIndex] = "";
+
+      return newPickedMoviesList;
+    });
+    // And unclick picked movie
+    setSelectedMovieFromCandidatesList(null);
+  }
 
   function render_search_column() {
     if (fetchingStatus.waiting) {
@@ -86,18 +128,13 @@ function Camera({ apiOrigin }) {
             imgAddress={movie.cover}
             title={movie.previewTitle}
             id={movie.id}
-            isClicked={movie.id === selectedMovieFromList?.id ? true : false}
+            isClickedFoundMovie={
+              movie.id === selectedMovieFromList?.id ? true : false
+            }
           />
         </div>
       );
     });
-  }
-
-  function render_empty_candidate(key) {
-    // This function renders the field with
-    return (
-      <div className="empty-candidate-record fade-in">Kandydat {key + 1}</div>
-    );
   }
 
   function render_candidates_column() {
@@ -105,9 +142,29 @@ function Camera({ apiOrigin }) {
     // If user didn't select the movie candidate, the field with doted line and "Kandydat" with number will be render
     return (
       <div className="candidates-column">
-        {" "}
         {pickedMovies.map((movie, key) => {
-          return movie === "" ? <MovieCard candidateKey={key} /> : "";
+          return movie === "" ? (
+            <MovieCard candidateKey={key} />
+          ) : (
+            <div
+              onClick={() => {
+                // console.log(key);
+                handleOnSelectCandidate(movie);
+              }}
+            >
+              <MovieCard
+                title={movie.previewTitle}
+                imgAddress={movie.cover}
+                key={movie.id + 11}
+                id={movie.id}
+                isClickedMovieCandidate={
+                  movie.id === selectedMovieFromCandidatesList?.id
+                    ? true
+                    : false
+                }
+              />
+            </div>
+          );
         })}
       </div>
     );
@@ -180,7 +237,9 @@ function Camera({ apiOrigin }) {
           &#62;
         </Button>
         <Button
+          style={{ backgroundColor: "grey" }}
           className="remove-button"
+          onClick={() => handleOnRemoveMovieCandidate()}
           disabled={selectedMovieFromCandidatesList === null}
         >
           &lt;
@@ -201,7 +260,8 @@ function MovieCard({
   imgAddress,
   title,
   id,
-  isClicked,
+  isClickedFoundMovie,
+  isClickedMovieCandidate,
   candidateKey,
   loaderKey,
   searcherKey,
@@ -214,9 +274,11 @@ function MovieCard({
             key={index}
             className="tape-block"
             style={{
-              backgroundColor: isClicked ? "black" : "rgb(34, 34, 34)",
-              border: isClicked ? "1px solid" : "",
-              borderColor: isClicked ? "black" : "",
+              backgroundColor: isClickedFoundMovie
+                ? "black"
+                : "rgb(34, 34, 34)",
+              border: isClickedFoundMovie ? "1px solid" : "",
+              borderColor: isClickedFoundMovie ? "black" : "",
             }}
           ></div>
         ))}
@@ -232,6 +294,9 @@ function MovieCard({
   }
 
   function render_movie_data(imgAddress, title) {
+    // Due to the date of production is a part of fetched title, we have to separate it from original movie title
+    const movieTitle = title.split(" (")[0];
+    const yearOfProduction = title.split(" (")[1];
     return (
       <>
         <div
@@ -256,7 +321,9 @@ function MovieCard({
               // width: "100%",
             }}
           >
-            {title}
+            {movieTitle.length > 17
+              ? `${movieTitle.slice(0, 13)}... (${yearOfProduction}`
+              : title}
           </p>
           <Button
             className="fade-in"
@@ -353,7 +420,13 @@ function MovieCard({
       <div
         className="movie-card"
         // onClick={() => handleOnClick()}
-        style={{ backgroundColor: isClicked ? "black" : "" }}
+        style={{
+          backgroundColor: isClickedFoundMovie
+            ? "black"
+            : isClickedMovieCandidate
+            ? "grey"
+            : "",
+        }}
       >
         {!imgAddress && !title && !loaderKey && !searcherKey
           ? render_empty_candidate(candidateKey)
