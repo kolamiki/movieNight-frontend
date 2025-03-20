@@ -9,6 +9,7 @@ import PreviousMovieNights from "./AppComponents/PrevoiusMovieNight/PreviousMovi
 import { useEffect, useState } from "react";
 import Login from "./AppComponents/UserProfile/Login";
 import AddMovieNightWindow from "./AppComponents/AddMovieNight/AddMovieNightWindow";
+import { AddMovieNightProvider } from "./contexts/AddMovieNightContext";
 function App({ apiOrigin }) {
   const [loginActive, setLoginActive] = useState(false);
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
@@ -47,12 +48,13 @@ function App({ apiOrigin }) {
         loggedUser={loggedUser}
         isUserLogged={isUserLogged}
       />
-
-      <AddMovieNightWindow
-        apiOrigin={apiOrigin}
-        isAddMovieNightActive={isAddMovieNightActive}
-        setIsMovieNightActive={setIsMovieNightActive}
-      />
+      <AddMovieNightProvider>
+        <AddMovieNightWindow
+          apiOrigin={apiOrigin}
+          isAddMovieNightActive={isAddMovieNightActive}
+          setIsMovieNightActive={setIsMovieNightActive}
+        />
+      </AddMovieNightProvider>
       {/* <PreviousMovieNights /> */}
       {/* <CalendarWithRanges /> */}
       {/* </div> */}

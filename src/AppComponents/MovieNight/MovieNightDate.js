@@ -1,9 +1,9 @@
 import React from "react";
 
 //** IMPORT STYLES */
-import "./Date.css";
-function Date({ children }) {
-  console.log("Children", children);
+import "./MovieNightDate.css";
+function MovieNightDate({ children }) {
+  // console.log("Children", children);
   const months = {
     1: "Styczeń",
     2: "Luty",
@@ -65,4 +65,4 @@ function Date({ children }) {
   );
 }
 
-export default Date;
+export default MovieNightDate;

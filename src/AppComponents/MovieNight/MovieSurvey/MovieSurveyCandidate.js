@@ -22,9 +22,6 @@ function MovieSurveyCandidate({
   // const [isVoted, setIsVoted] = useState(false);
   // const [loggedUser, setLoggedUser] = useState("tester");
 
-  //!! DODAĆ
-  //! Popup, gdy niezalogowany użytkownik najedzie myszką na przycisk GŁOSUJ
-
   function send_vote() {
     const post_data = async () => {
       const response = await axios.post(

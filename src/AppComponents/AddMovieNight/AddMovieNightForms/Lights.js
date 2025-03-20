@@ -11,18 +11,21 @@ import { Calendar } from "primereact/calendar";
 
 import "./Lights.css";
 import getCSRFToken from "../../get_token";
+import { useAddMovieNight } from "../../../contexts/AddMovieNightContext";
 
 function Lights({ apiOrigin, locationsList }) {
-  const [title, setTitle] = useState("");
+  //Get states based on the provider
 
-  const [location, setLocation] = useState("");
-  const [date, setDate] = useState("");
-
-  const [description, setDescription] = useState("");
-
-  // useEffect(function () {
-  //   console.log("update kalendarza");
-  // }, []);
+  const {
+    title,
+    setTitle,
+    location,
+    setLocation,
+    date,
+    setDate,
+    description,
+    setDescription,
+  } = useAddMovieNight();
 
   return (
     <>

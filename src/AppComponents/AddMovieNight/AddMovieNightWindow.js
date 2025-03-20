@@ -51,11 +51,8 @@ function AddMovieNightWindow({
         style={{ flexBasis: "50rem", background: "#222222" }}
       >
         <StepperPanel header="Światła" style={{ fontFamily: "Antonio" }}>
-          {/* <div className="flex flex-column h-12rem"> */}
-          {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
           <Lights apiOrigin={apiOrigin} locationsList={locationsList} />
-          {/* </div> */}
-          {/* </div> */}
+
           <div className="flex pt-4 justify-content-end">
             <Button
               className="next-button"
@@ -72,15 +69,7 @@ function AddMovieNightWindow({
             <Camera apiOrigin={apiOrigin} />
             {/* </div> */}
           </div>
-          <div
-            // style={{
-            //   display: "flex",
-            //   flexDirection: "row",
-            //   justifyContent: "space-between",
-            // }}
-            className="button-positions"
-            // className="flex  justify-content-between"
-          >
+          <div className="button-positions">
             <Button
               label="Wróć"
               severity="secondary"
@@ -97,9 +86,9 @@ function AddMovieNightWindow({
         </StepperPanel>
         <StepperPanel header="Akcja">
           <div className="flex flex-column h-12rem">
-            <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-              <Action />
-            </div>
+            {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
+            <Action />
+            {/* </div> */}
           </div>
           <div className="flex pt-4 justify-content-between">
             <Button

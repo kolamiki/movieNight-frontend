@@ -10,9 +10,29 @@ import "./MovieNight.css";
 import WinnerMoviePreview from "./WinnerMoviePreview";
 import Category from "./Category";
 import Location from "./Location";
-import Date from "./Date";
+import MovieNightDate from "./MovieNightDate";
 import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
 
+/**
+ * MovieNight component displays details of a movie night event, including its category, location, date,
+ * winner movie preview, and survey results. It fetches movie night details from the API and manages
+ * voting state.
+ *
+ * @component
+ * @param {Object} props - Component properties.
+ * @param {string} props.apiOrigin - The base URL of the API.
+ * @param {Object} props.loggedUser - The currently logged-in user.
+ * @returns {JSX.Element} The rendered MovieNight component.
+ */
+
+/**
+ * Fetches the details of a specific movie night from the API and updates the state.
+ *
+ * @function get_movie_night_details
+ * @param {string} apiOrigin - The base URL of the API.
+ * @param {string} movieNightName - The name of the movie night to fetch details for.
+ * @returns {void}
+ */
 function MovieNight({ apiOrigin, loggedUser }) {
   const [isVoted, setIsVoted] = useState(true);
 
@@ -51,7 +71,7 @@ function MovieNight({ apiOrigin, loggedUser }) {
             <Location>{movieNightDetails?.location?.locationName}</Location>
           </div>
           <div class="col-3">
-            <Date>{movieNightDetails?.date}</Date>
+            <MovieNightDate>{movieNightDetails?.date}</MovieNightDate>
           </div>
           <div class="col-2"></div>
         </div>
