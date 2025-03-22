@@ -1,3 +1,28 @@
 .category-action {
   font-size: 12px !important;
 }
+
+.description-action {
+  font-family: Antonio;
+  color: white;
+  font-size: 24px !important;
+  height: 400px;
+}
+
+.action-location {
+  display: flex;
+}
+
+.action-header-grid {
+  display: flex;
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-bottom: 5px;
+}
+
+.action-description-and-candidates {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

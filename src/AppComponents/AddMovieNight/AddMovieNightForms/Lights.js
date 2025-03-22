@@ -72,11 +72,16 @@ function Lights({ apiOrigin, locationsList }) {
         <div class="field col">
           <p className="light-form">Opis</p>
           <InputTextarea
+            style={{
+              backgroundColor: description.length <= 490 ? "white" : "#ffcccc",
+            }}
             autoResize
             value={description}
+            // maxLength={490}
             onChange={(e) => setDescription(e.target.value)}
             rows={5}
             cols={80}
+            placeholder="Wpisz tekst (max 490 znaków)"
           />
         </div>
       </div>

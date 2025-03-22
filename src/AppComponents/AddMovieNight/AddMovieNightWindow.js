@@ -12,12 +12,15 @@ import "./AddMovieNight.css";
 import Lights from "./AddMovieNightForms/Lights";
 import Camera from "./AddMovieNightForms/Camera";
 import Action from "./AddMovieNightForms/Action";
+import { useAddMovieNight } from "../../contexts/AddMovieNightContext";
 function AddMovieNightWindow({
   apiOrigin,
   isAddMovieNightActive,
   setIsMovieNightActive,
 }) {
   const stepperRef = useRef(null);
+
+  const { description } = useAddMovieNight();
 
   const [locationsList, setLocationsList] = useState([]);
 
@@ -60,6 +63,7 @@ function AddMovieNightWindow({
               icon="pi pi-arrow-right"
               iconPos="right"
               onClick={() => stepperRef.current.nextCallback()}
+              disabled={description.length > 490}
             />
           </div>
         </StepperPanel>
@@ -90,7 +94,7 @@ function AddMovieNightWindow({
             <Action />
             {/* </div> */}
           </div>
-          <div className="flex pt-4 justify-content-between">
+          <div className="button-positions">
             <Button
               label="Wróć"
               severity="secondary"
