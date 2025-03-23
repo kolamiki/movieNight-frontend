@@ -56,7 +56,10 @@ function AddMovieNightWindow({
         <StepperPanel header="Światła" style={{ fontFamily: "Antonio" }}>
           <Lights apiOrigin={apiOrigin} locationsList={locationsList} />
 
-          <div className="flex pt-4 justify-content-end">
+          <div
+            className="flex pt-0 justify-content-end"
+            style={{ marginTop: "58px" }}
+          >
             <Button
               className="next-button"
               label="Dalej"

@@ -113,7 +113,12 @@ function MovieTrivia({ apiOrigin }) {
 
   return (
     <>
-      <p className="movie-trivia-content">{trivia}</p>
+      <p
+        className="movie-trivia-content"
+        style={{ fontSize: trivia.length > 150 ? "15px" : "" }}
+      >
+        {trivia}
+      </p>
       <p className="movie-trivia-source">{triviaSource}</p>
     </>
   );
