@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./MovieCard.css";
 import { Button } from "primereact/button";
+import MoviePreview from "../../MoviePreview/MoviePreview";
 
 function MovieCard({
+  apiOrigin,
   imgAddress,
   title,
   id,
@@ -13,6 +15,13 @@ function MovieCard({
   loaderKey,
   searcherKey,
 }) {
+  const [isPreviewActive, setIsPreviewActive] = useState(false);
+
+  function handlePreviewClick() {
+    console.log("Clicked");
+    setIsPreviewActive(true);
+  }
+
   function render_film_tape_blocks() {
     return (
       <div className="tape-block-column">
@@ -35,6 +44,7 @@ function MovieCard({
 
   function render_empty_candidate(key) {
     // This function renders the field with
+
     return (
       <div className="empty-candidate-record fade-in">Kandydat {key + 1}</div>
     );
@@ -80,6 +90,7 @@ function MovieCard({
               fontSize: "15px",
               // marginTop: "2px",
             }}
+            onClick={() => handlePreviewClick()}
           >
             Podgląd
           </Button>
@@ -162,30 +173,41 @@ function MovieCard({
 
   return (
     // <div class="animate__animated animate__fadeIn">
-    <div className="movie-frame-look">
-      {render_film_tape_blocks()}
-      <div
-        className="movie-card"
-        // onClick={() => handleOnClick()}
-        style={{
-          backgroundColor: isClickedFoundMovie
-            ? "black"
-            : isClickedMovieCandidate
-            ? "grey"
-            : "",
-        }}
-      >
-        {!imgAddress && !title && !loaderKey && !searcherKey
-          ? render_empty_candidate(candidateKey)
-          : loaderKey
-          ? render_loading(loaderKey)
-          : searcherKey
-          ? render_search(searcherKey)
-          : render_movie_data(imgAddress, title)}
-      </div>
+    <>
+      <div className="movie-frame-look">
+        {render_film_tape_blocks()}
+        <div
+          className="movie-card"
+          // onClick={() => handleOnClick()}
+          style={{
+            backgroundColor: isClickedFoundMovie
+              ? "black"
+              : isClickedMovieCandidate
+              ? "grey"
+              : "",
+          }}
+        >
+          {!imgAddress && !title && !loaderKey && !searcherKey
+            ? render_empty_candidate(candidateKey)
+            : loaderKey
+            ? render_loading(loaderKey)
+            : searcherKey
+            ? render_search(searcherKey)
+            : render_movie_data(imgAddress, title)}
+        </div>
 
-      {render_film_tape_blocks()}
-    </div>
+        {render_film_tape_blocks()}
+      </div>
+      {/* RENDER MOVIE PREVIEW WINDOW AFTER CLICK "PODGLĄD"*/}
+      {isPreviewActive && (
+        <MoviePreview
+          apiOrigin={apiOrigin}
+          movieID={id}
+          isPreviewActive={isPreviewActive}
+          setIsPreviewActive={setIsPreviewActive}
+        />
+      )}
+    </>
     // </div>
   );
 }

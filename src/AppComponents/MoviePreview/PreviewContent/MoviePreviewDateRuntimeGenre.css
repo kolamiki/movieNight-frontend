@@ -1,0 +1,17 @@
+.date-runtime-genre-position {
+  /* display: flex;
+  flex-direction: row; */
+  font-family: Antonio;
+  font-size: 20px;
+  color: white;
+  margin-left: ;
+}
+
+.separator-square {
+  display: inline-block;
+  width: 6px; /* Dopasuj według potrzeb */
+  height: 6px;
+  background-color: white; /* Dopasuj według potrzeb */
+  margin: 0 8px; /* Odstępy między elementami */
+  vertical-align: middle; /* Wyśrodkowanie w linii tekstu */
+}

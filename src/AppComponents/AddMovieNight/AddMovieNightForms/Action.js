@@ -11,7 +11,7 @@ import MovieCard from "./MovieCard";
 import "./Action.css";
 import "./Lights.css";
 
-function Action() {
+function Action({ apiOrigin }) {
   const { title, location, date, description, pickedMovies } =
     useAddMovieNight();
 
@@ -31,6 +31,7 @@ function Action() {
       <div className="candidates-box" style={{ marginTop: "0px" }}>
         {pickedMovies.map((movie, key) => (
           <MovieCard
+            apiOrigin={apiOrigin}
             title={movie.previewTitle}
             imgAddress={movie.cover}
             key={movie.id + 2}

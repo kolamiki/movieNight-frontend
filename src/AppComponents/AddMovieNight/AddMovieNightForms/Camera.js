@@ -124,6 +124,7 @@ function Camera({ apiOrigin }) {
           }}
         >
           <MovieCard
+            apiOrigin={apiOrigin}
             key={movie.id}
             imgAddress={movie.cover}
             title={movie.previewTitle}
@@ -153,6 +154,7 @@ function Camera({ apiOrigin }) {
               }}
             >
               <MovieCard
+                apiOrigin={apiOrigin}
                 title={movie.previewTitle}
                 imgAddress={movie.cover}
                 key={movie.id + 11}

@@ -94,7 +94,7 @@ function AddMovieNightWindow({
         <StepperPanel header="Akcja">
           <div className="flex flex-column h-12rem">
             {/* <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"> */}
-            <Action />
+            <Action apiOrigin={apiOrigin} />
             {/* </div> */}
           </div>
           <div className="button-positions">
