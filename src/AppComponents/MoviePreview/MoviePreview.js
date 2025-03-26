@@ -83,6 +83,7 @@ function MoviePreview({
         height: "820px",
         background: "#222222",
       }}
+      draggable={false}
     >
       {isLoading ? (
         <p>Loading...</p>
