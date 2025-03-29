@@ -102,11 +102,11 @@ function Camera({ apiOrigin }) {
     // This function renders the column with found movies
     if (fetchingStatus.waiting) {
       return ["firstFrame", "secondFrame", "thirdFrame"].map((key) => (
-        <MovieCard searcherKey={key} />
+        <MovieCard key={key + 3 * key} searcherKey={key} />
       ));
     } else if (fetchingStatus.pending) {
       return ["loaderPicture", "descriptionTop", "descriptionBottom"].map(
-        (key) => <MovieCard loaderKey={key} />
+        (key) => <MovieCard key={key + 4 * key} loaderKey={key} />
       );
     } else if (fetchingStatus.fetched) {
       return render_found_results();
@@ -145,7 +145,7 @@ function Camera({ apiOrigin }) {
       <div className="candidates-column">
         {pickedMovies.map((movie, key) => {
           return movie === "" ? (
-            <MovieCard candidateKey={key} />
+            <MovieCard key={key + 5 * key} candidateKey={key} />
           ) : (
             <div
               onClick={() => {
@@ -157,7 +157,7 @@ function Camera({ apiOrigin }) {
                 apiOrigin={apiOrigin}
                 title={movie.previewTitle}
                 imgAddress={movie.cover}
-                key={movie.id + 11}
+                key={movie.id + 11 * movie.id}
                 id={movie.id}
                 isClickedMovieCandidate={
                   movie.id === selectedMovieFromCandidatesList?.id

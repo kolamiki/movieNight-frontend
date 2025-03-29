@@ -18,6 +18,14 @@ function MoviePreviewContent({ movieDetails }) {
         />
         <MovieNote movieNote={movieDetails.rating} />
       </div>
+      <div className="cover-description">
+        <img
+          src={movieDetails.coverBig}
+          alt="movie-preview-cover"
+          className="cover-size"
+        />
+        <p>{movieDetails.plot}</p>
+      </div>
     </div>
   );
 }

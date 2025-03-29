@@ -34,7 +34,7 @@ function Action({ apiOrigin }) {
             apiOrigin={apiOrigin}
             title={movie.previewTitle}
             imgAddress={movie.cover}
-            key={movie.id + 2}
+            key={movie.id + 2 * movie.id}
             id={movie.id}
           />
         ))}

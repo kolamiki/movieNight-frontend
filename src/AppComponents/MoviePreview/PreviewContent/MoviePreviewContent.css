@@ -10,3 +10,14 @@
   margin-top: -50px;
   display: flex;
 }
+
+.cover-size {
+  width: 30% !important;
+}
+
+.cover-description {
+  margin-top: -150px;
+  font-family: Antonio;
+  font-size: 15px;
+  color: white;
+}
