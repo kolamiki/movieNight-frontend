@@ -12,7 +12,7 @@
 }
 
 .cover-size {
-  width: 30% !important;
+  width: 80% !important;
 }
 
 .cover-description {
@@ -20,4 +20,8 @@
   font-family: Antonio;
   font-size: 15px;
   color: white;
+}
+.cover-creators-columns {
+  display: flex;
+  flex-direction: row;
 }

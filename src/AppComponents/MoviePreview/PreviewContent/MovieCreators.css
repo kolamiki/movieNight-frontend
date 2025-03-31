@@ -1,0 +1,10 @@
+.creators-column {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  font-family: Antonio;
+  font-size: 20px;
+  color: white;
+  margin-top: -90px;
+  width: 500px;
+}

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import "./MoviePreviewContent.css";
 import MoviePreviewDateRuntimeGenre from "./MoviePreviewDateRuntimeGenre";
 import MovieNote from "./MovieNote";
+import MovieCreators from "./MovieCreators";
 
 function MoviePreviewContent({ movieDetails }) {
   return (
@@ -18,13 +19,25 @@ function MoviePreviewContent({ movieDetails }) {
         />
         <MovieNote movieNote={movieDetails.rating} />
       </div>
-      <div className="cover-description">
-        <img
-          src={movieDetails.coverBig}
-          alt="movie-preview-cover"
-          className="cover-size"
-        />
-        <p>{movieDetails.plot}</p>
+      <div className="cover-creators-columns">
+        <div className="cover-description">
+          <img
+            src={movieDetails.coverBig}
+            alt="movie-preview-cover"
+            className="cover-size"
+          />
+          <p style={{ width: "80%" }}>
+            {movieDetails.plot.slice(0, 400) + "..."}
+          </p>
+        </div>
+        <div>
+          <MovieCreators
+            movieDirector={movieDetails.director}
+            movieWriter={movieDetails.writer}
+            movieCinematographer={movieDetails.cinematographer}
+            cast={movieDetails.cast}
+          />
+        </div>
       </div>
     </div>
   );
