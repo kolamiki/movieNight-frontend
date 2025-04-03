@@ -29,6 +29,7 @@ function MovieCreators({
     const castList = cast.split(", ").slice(0, 7);
 
     //! Dodać podział na dwa rzędy po 4 kolumny, z czego ostatnia komórka zawiera wartość "i inni"
+    //! oraz dodać cast do pobierania filmów z IMDB
     return castList;
   }
 

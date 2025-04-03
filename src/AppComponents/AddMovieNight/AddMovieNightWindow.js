@@ -24,6 +24,8 @@ function AddMovieNightWindow({
 
   const [locationsList, setLocationsList] = useState([]);
 
+  function add_movie_night_in_db() {}
+
   useEffect(function () {
     async function get_locations() {
       fetch(`${apiOrigin}/getLocations/`)
