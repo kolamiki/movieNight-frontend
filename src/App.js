@@ -51,6 +51,7 @@ function App({ apiOrigin }) {
       <AddMovieNightProvider>
         <AddMovieNightWindow
           apiOrigin={apiOrigin}
+          loggedUser={loggedUser}
           isAddMovieNightActive={isAddMovieNightActive}
           setIsMovieNightActive={setIsMovieNightActive}
         />

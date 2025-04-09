@@ -31,7 +31,7 @@ function MovieSurveyResults({
               apiOrigin={apiOrigin}
               movieTitle={movieCandidate?.title}
               movieNightCategory={movieNightCategory}
-              moviePosterMini={movieCandidate?.coverSmall}
+              moviePosterMini={movieCandidate?.coverMini}
               votes={votes}
               participants={participants}
               isMovieNightActive={isMovieNightActive}
