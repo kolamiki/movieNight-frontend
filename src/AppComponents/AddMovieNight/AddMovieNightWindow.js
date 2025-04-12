@@ -12,6 +12,9 @@ import Camera from "./AddMovieNightForms/Camera";
 import Action from "./AddMovieNightForms/Action";
 import { useAddMovieNight } from "../../contexts/AddMovieNightContext";
 import { segregate_movieNight_data } from "../../utils/saveRecordsInDB";
+import getCSRFToken from "../get_token";
+import axios from "axios";
+
 function AddMovieNightWindow({
   apiOrigin,
   loggedUser,
@@ -25,7 +28,9 @@ function AddMovieNightWindow({
 
   const [locationsList, setLocationsList] = useState([]);
 
-  function add_movie_night_to_db() {
+  //!!! DODAĆ EKRAN ŁADOWANIA PRZY ZAPISYWANIU WIECZORKU DO BAZY
+
+  async function add_movie_night_to_db() {
     // This function gets all provided data to create movie night and store them in the object, which will be send in proper request
 
     // First, let's segre
@@ -39,6 +44,20 @@ function AddMovieNightWindow({
     );
 
     console.log("MovieNight data", movieNightData);
+
+    // Now use segregated data to save them in the database and create new MovieNight record
+
+    const csrfToken = getCSRFToken();
+    try {
+      await axios.post(
+        `${apiOrigin}/addMovieNight/`,
+
+        movieNightData,
+        { headers: { "X-CSRFToken": csrfToken } }
+      );
+    } catch (err) {
+      console.error("Error during saving", err);
+    }
   }
 
   function check_if_lights_fulfilled() {
@@ -54,25 +73,27 @@ function AddMovieNightWindow({
 
     for (let i = 0; i < pickedMovies.length; i++) {
       if (typeof pickedMovies[i] === "string") {
-        console.log("String DEBILU");
         return false;
       }
-      console.log(typeof pickedMovies[i]);
+      // console.log(typeof pickedMovies[i]);
     }
     return true;
   }
 
-  useEffect(function () {
-    async function get_locations() {
-      // Function to fetch available locations from the database
+  useEffect(
+    function () {
+      async function get_locations() {
+        // Function to fetch available locations from the database
 
-      fetch(`${apiOrigin}/getLocations/`)
-        .then((response) => response.json())
-        .then((data) => setLocationsList(data));
-    }
+        fetch(`${apiOrigin}/getLocations/`)
+          .then((response) => response.json())
+          .then((data) => setLocationsList(data));
+      }
 
-    get_locations();
-  }, []);
+      get_locations();
+    },
+    [apiOrigin]
+  );
 
   return (
     <Dialog

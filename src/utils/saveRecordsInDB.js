@@ -8,7 +8,7 @@ export function segregate_movieNight_data(
 ) {
   // This function cumulating the data which are used to create new record in the database
 
-  return {
+  const structuredMovieNightData = {
     isActive: true,
     creator: username,
     categoryName: title,
@@ -17,4 +17,6 @@ export function segregate_movieNight_data(
     date: date,
     candidates: candidates,
   };
+
+  return structuredMovieNightData;
 }
