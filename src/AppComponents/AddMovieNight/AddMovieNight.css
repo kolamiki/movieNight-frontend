@@ -57,3 +57,9 @@
   justify-content: space-between;
   margin-top: 380px;
 }
+
+.dialog-style {
+  font-family: "Antonio";
+  width: 840px;
+  height: 820px;
+}

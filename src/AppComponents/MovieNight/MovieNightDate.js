@@ -38,7 +38,7 @@ function MovieNightDate({ children }) {
     const month = dateString.split("-")[1];
     // Due to the months numbers starts from 0, check length of the month number and get rid off first 0
     const structuredMonthNumber = month.length > 1 ? month[1] : month;
-    console.log("Month", structuredMonthNumber);
+    // console.log("Month", structuredMonthNumber);
     // And use component's months object to translate number to month name
     return (
       <div

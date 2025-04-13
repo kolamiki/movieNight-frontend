@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Login from "./AppComponents/UserProfile/Login";
 import AddMovieNightWindow from "./AppComponents/AddMovieNight/AddMovieNightWindow";
 import { AddMovieNightProvider } from "./contexts/AddMovieNightContext";
+import LoadingScreen from "./universalComponents/LoadingScreen";
 function App({ apiOrigin }) {
   const [loginActive, setLoginActive] = useState(false);
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
@@ -22,43 +23,45 @@ function App({ apiOrigin }) {
 
   return (
     <>
-      <div className="gradient-background"></div>
-      <Header
-        apiOrigin={apiOrigin}
-        loginActive={loginActive}
-        setLoginActive={setLoginActive}
-        addBookedDaysActive={addBookedDaysActive}
-        setAddBookedDaysActive={setAddBookedDaysActive}
-        addMovieNightActive={isAddMovieNightActive}
-        setMovieNightActive={setIsMovieNightActive}
-        isUserLogged={isUserLogged}
-        setIsUserLogged={setIsUserLogged}
-        setLoggedUser={setLoggedUser}
-      />
-      {/* <div className="content"> */}
-      <Login
-        apiOrigin={apiOrigin}
-        loginActive={loginActive}
-        setLoginActive={setLoginActive}
-        setIsUserLogged={setIsUserLogged}
-        setLoggedUser={setLoggedUser}
-      />
-      <MovieNight
-        apiOrigin={apiOrigin}
-        loggedUser={loggedUser}
-        isUserLogged={isUserLogged}
-      />
-      <AddMovieNightProvider>
-        <AddMovieNightWindow
+      <div className="gradient-background">
+        {/* <LoadingScreen /> */}
+        <Header
+          apiOrigin={apiOrigin}
+          loginActive={loginActive}
+          setLoginActive={setLoginActive}
+          addBookedDaysActive={addBookedDaysActive}
+          setAddBookedDaysActive={setAddBookedDaysActive}
+          addMovieNightActive={isAddMovieNightActive}
+          setMovieNightActive={setIsMovieNightActive}
+          isUserLogged={isUserLogged}
+          setIsUserLogged={setIsUserLogged}
+          setLoggedUser={setLoggedUser}
+        />
+        {/* <div className="content"> */}
+        <Login
+          apiOrigin={apiOrigin}
+          loginActive={loginActive}
+          setLoginActive={setLoginActive}
+          setIsUserLogged={setIsUserLogged}
+          setLoggedUser={setLoggedUser}
+        />
+        <MovieNight
           apiOrigin={apiOrigin}
           loggedUser={loggedUser}
-          isAddMovieNightActive={isAddMovieNightActive}
-          setIsMovieNightActive={setIsMovieNightActive}
+          isUserLogged={isUserLogged}
         />
-      </AddMovieNightProvider>
-      {/* <PreviousMovieNights /> */}
-      {/* <CalendarWithRanges /> */}
-      {/* </div> */}
+        <AddMovieNightProvider>
+          <AddMovieNightWindow
+            apiOrigin={apiOrigin}
+            loggedUser={loggedUser}
+            isAddMovieNightActive={isAddMovieNightActive}
+            setIsMovieNightActive={setIsMovieNightActive}
+          />
+        </AddMovieNightProvider>
+        {/* <PreviousMovieNights /> */}
+        {/* <CalendarWithRanges /> */}
+        {/* </div> */}
+      </div>
     </>
   );
 }
