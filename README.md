@@ -21,6 +21,8 @@ Movie Night makes it easy to organize fun and engaging movie events. Here's how 
 
 Whether you're hosting a cozy evening at home or a big-screen garden party, Movie Night helps streamline the decision-making process in a fun and social way.
 
+## ![Movie Night Main Page](./readMe_pictures/Wieczorki_Podglad.png)
+
 ## ![iMovie Night Form](./readMe_pictures/AddWieczorek_Form.png)
 
 ## ![Movie Night Movie Searcher](./readMe_pictures/Movie_Searcher.png)
