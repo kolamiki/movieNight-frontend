@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# 🎬 Movie Night – Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Movie Night** (Polish: _Wieczorek Filmowy_) is a web application designed to help groups of friends organize thematic movie nights with collaborative movie voting. This repository contains the frontend part of the application.
 
-## Available Scripts
+## 🚀 Overview
 
-In the project directory, you can run:
+Movie Night makes it easy to organize fun and engaging movie events. Here's how it works:
 
-### `npm start`
+1. **Create an Event** – The organizer sets up a new movie night by providing:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   - A **Title** (e.g. "Retro Sci-Fi", "Oscar Winners", etc.)
+   - A **short description**
+   - The **location** of the screening
+   - A curated list of movie candidates pulled from the **IMDB** integration
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Invite Friends** – Participants can join the event and view the list of candidate films.
 
-### `npm test`
+3. **Vote!** – Each attendee casts **one vote** for their favorite movie.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Enjoy the Show** – The winning film becomes the evening’s feature presentation!
 
-### `npm run build`
+Whether you're hosting a cozy evening at home or a big-screen garden party, Movie Night helps streamline the decision-making process in a fun and social way.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ![iMovie Night Form](./readMe_pictures/AddWieczorek_Form.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ![Movie Night Movie Searcher](./readMe_pictures/Movie_Searcher.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ![Movie Night Main Page](./readMe_pictures/Wieczorek_Main_Page.png)
 
-### `npm run eject`
+## Ready to find out what we’re watching tonight? Vote now and let the Movie Night begin!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🧠 Tech Stack
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The frontend of the Movie Night app was built with **Create React App**, based on:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **React**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **CSS**
 
-## Learn More
+- **CUSTOM COMPONENTS**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **PRIMEREACT LIBRARY**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠️ Getting Started
 
-### Code Splitting
+Follow these steps to clone and run the project locally:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1. Clone the Repository
 
-### Analyzing the Bundle Size
+```sh
+git clone https://github.com/your-username/movie-night-frontend.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+cd movie-night-frontend
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 2. Install Dependencies
 
-### Advanced Configuration
+Make sure you have Node.js installed (version 16+ recommended), then run:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```sh
 
-### Deployment
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
+### 3. Run Movie Night UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+
+npm start
+
+```
+
+The app should now be running at http://localhost:8000.
+
+## 📬 Contributions
+
+Pull requests are welcome! If you find any bugs or have feature requests, feel free to open an issue.
+
+## 📝 License
+
+This project is licensed under the MIT License.
