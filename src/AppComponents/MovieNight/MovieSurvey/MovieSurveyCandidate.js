@@ -7,9 +7,11 @@ import axios from "axios";
 
 import "./MovieSurveyCandidate.css";
 import ProgressBar from "./ProgressBar";
+import MoviePreview from "../../MoviePreview/MoviePreview";
 
 function MovieSurveyCandidate({
   apiOrigin,
+  movieId,
   movieTitle,
   movieNightCategory,
   moviePosterMini,
@@ -21,6 +23,8 @@ function MovieSurveyCandidate({
 }) {
   // const [isVoted, setIsVoted] = useState(false);
   // const [loggedUser, setLoggedUser] = useState("tester");
+
+  const [isPreviewActive, setIsPreviewActive] = useState(false);
 
   function send_vote() {
     const post_data = async () => {
@@ -52,7 +56,7 @@ function MovieSurveyCandidate({
     let isVoted = false;
     votes.map((vote) => {
       if (vote.user.includes(loggedUser) && vote.movie.includes(movieTitle)) {
-        console.log("Voted User", vote.user);
+        // console.log("Voted User", vote.user);
         isVoted = true;
       }
     });
@@ -109,16 +113,31 @@ function MovieSurveyCandidate({
   }
 
   return (
-    <div className="movie-candidate-row">
-      <img src={moviePosterMini} alt={movieTitle} />
-      <div style={{ width: "150px", padding: "10px" }}>
-        <ProgressBar
-          percentage={(count_votes(votes) / participants).toFixed(2) * 100}
+    <>
+      <div className="movie-candidate-row">
+        <img
+          src={moviePosterMini}
+          alt={movieTitle}
+          onClick={() => {
+            setIsPreviewActive(true);
+          }}
+          style={{ cursor: "pointer" }}
         />
-      </div>
+        <div style={{ width: "150px", padding: "10px" }}>
+          <ProgressBar
+            percentage={(count_votes(votes) / participants).toFixed(2) * 100}
+          />
+        </div>
 
-      {render_vote_button()}
-    </div>
+        {render_vote_button()}
+      </div>
+      <MoviePreview
+        apiOrigin={apiOrigin}
+        movieID={movieId}
+        isPreviewActive={isPreviewActive}
+        setIsPreviewActive={setIsPreviewActive}
+      />
+    </>
   );
 }
 

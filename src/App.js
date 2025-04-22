@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import Login from "./AppComponents/UserProfile/Login";
 import AddMovieNightWindow from "./AppComponents/AddMovieNight/AddMovieNightWindow";
 import { AddMovieNightProvider } from "./contexts/AddMovieNightContext";
-import LoadingScreen from "./universalComponents/LoadingScreen";
 function App({ apiOrigin }) {
   const [loginActive, setLoginActive] = useState(false);
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
@@ -24,7 +23,6 @@ function App({ apiOrigin }) {
   return (
     <>
       <div className="gradient-background">
-        {/* <LoadingScreen /> */}
         <Header
           apiOrigin={apiOrigin}
           loginActive={loginActive}

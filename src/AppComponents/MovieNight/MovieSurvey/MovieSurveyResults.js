@@ -30,6 +30,7 @@ function MovieSurveyResults({
               key={index}
               apiOrigin={apiOrigin}
               movieTitle={movieCandidate?.title}
+              movieId={movieCandidate?.movieID}
               movieNightCategory={movieNightCategory}
               moviePosterMini={movieCandidate?.coverMini}
               votes={votes}
