@@ -33,13 +33,18 @@ import MovieSurveyResults from "./MovieSurvey/MovieSurveyResults";
  * @param {string} movieNightName - The name of the movie night to fetch details for.
  * @returns {void}
  */
-function MovieNight({ apiOrigin, loggedUser }) {
+function MovieNight({
+  apiOrigin,
+  loggedUser,
+  movieNightId,
+  currentMovieNightIndex,
+}) {
   const [isVoted, setIsVoted] = useState(true);
 
   const [movieNightDetails, setMovieNightDetails] = useState(null);
 
-  function get_movie_night_details(apiOrigin, movieNightName) {
-    fetch(`${apiOrigin}/showMovieNight/${movieNightName}/`)
+  function get_movie_night_details(apiOrigin, movieNightId) {
+    fetch(`${apiOrigin}/showMovieNight/${movieNightId}/`)
       .then((response) => response.json())
       .then((data) => {
         setMovieNightDetails(() => data);
@@ -48,21 +53,23 @@ function MovieNight({ apiOrigin, loggedUser }) {
   useEffect(
     function () {
       if (isVoted) {
-        get_movie_night_details(apiOrigin, "Test");
+        get_movie_night_details(apiOrigin, movieNightId);
 
         // Change status isVoted to false
         setIsVoted(false);
+      } else {
+        get_movie_night_details(apiOrigin, movieNightId);
       }
     },
-    [isVoted, loggedUser]
+    [isVoted, loggedUser, currentMovieNightIndex]
   );
 
-  console.log("movie night details", movieNightDetails);
-  console.log("loggedUser in MovieNight", loggedUser);
+  // console.log("movie night details", movieNightDetails);
+  // console.log("loggedUser in MovieNight", loggedUser);
 
   return (
     <div class="animate__animated animate__fadeIn">
-      <div className="movie-night-position">
+      <div className="movie-night-position" id="movie-night">
         <div class="grid">
           <div class="col-6">
             <Category>{movieNightDetails?.categoryName}</Category>
