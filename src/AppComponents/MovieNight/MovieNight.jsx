@@ -70,23 +70,21 @@ function MovieNight({
   return (
     <div class="animate__animated animate__fadeIn">
       <div className="movie-night-position" id="movie-night">
-        <div class="grid">
-          <div class="col-6">
-            <Category>{movieNightDetails?.categoryName}</Category>
-          </div>
-          <div class="col-2">
+        {/* Top Info Block: Category | Location | Date */}
+        <div className="flex justify-content-center align-items-start mb-5" style={{ gap: '20px' }}>
+          <Category>{movieNightDetails?.categoryName}</Category>
+          <div className="flex align-items-start pt-2">
             <Location>{movieNightDetails?.location?.locationName}</Location>
           </div>
-          <div class="col-3">
-            <MovieNightDate>{movieNightDetails?.date}</MovieNightDate>
-          </div>
-          <div class="col-2"></div>
+          <MovieNightDate>{movieNightDetails?.date}</MovieNightDate>
         </div>
+
         <div class="grid">
           <div class="col-5">
             <WinnerMoviePreview
               apiOrigin={apiOrigin}
               currentMovieNightWinnerDetails={movieNightDetails?.winnerMovie}
+              movieNightDescription={movieNightDetails?.description}
             />
           </div>
           <div class="col-7">

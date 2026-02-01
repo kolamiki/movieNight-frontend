@@ -9,9 +9,21 @@
   margin-left: 25px;
 }
 
-.movie-details-carousel {
+.winner-movie-details-or-vote {
   width: 490px;
   height: 650px;
+}
+
+.winner-movie-details-or-vote .vote {
+  width: 450px;
+  height: 575px;
+  /* border: 3px solid white; */
+  justify-content: center;
+  color: white;
+  font-family: Antonio;
+  padding: 40px;
+  padding-left: 30px;
+  font-size: 24px;
 }
 
 .movie-in-carousel-cover {

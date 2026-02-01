@@ -13,6 +13,8 @@
   background-color: white;
   /* width: 80%; */
   height: 400px;
+  overflow-y: auto;
+  /* Ensure scrolling if needed */
 }
 
 .find-movie-columns {
@@ -30,6 +32,7 @@
   background-color: white;
 
   height: 400px;
+  overflow-y: auto;
 }
 
 .search-movie-candidates {
@@ -48,9 +51,11 @@
   flex-direction: column;
   align-items: center;
 }
+
 .searcher-column {
   width: 345px;
 }
+
 .middle-column {
   display: flex;
   position: relative;
@@ -70,6 +75,7 @@
   margin-top: 45px;
   margin-bottom: 25px;
 }
+
 .remove-button {
   margin-top: 25px;
 }
@@ -94,11 +100,10 @@
   margin: 7px;
   width: 280px;
   height: 120px;
-  background-color: rgb(34, 34, 34);
+  background-color: black;
   font-family: Antonio;
   color: white;
-  border: 3px solid;
-  border-color: black;
+  border: 2px solid white;
   cursor: pointer;
 }
 
@@ -133,6 +138,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

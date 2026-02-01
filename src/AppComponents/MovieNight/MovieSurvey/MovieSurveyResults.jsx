@@ -21,7 +21,7 @@ function MovieSurveyResults({
   // console.log("Votes", votes);
 
   return (
-    <div className="movie-survey-results">
+    <div className="movie-survey-results film-card">
       <div class="flex flex-column">
         {movieNightCandidatesData?.map((movieCandidate, index) => {
           // console.log(movieCandidate);

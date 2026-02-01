@@ -80,7 +80,7 @@ function MoviePreview({
       style={{
         fontFamily: "Antonio",
         width: "840px",
-        height: "820px",
+        height: "850px",
         background: "#222222",
       }}
       draggable={false}

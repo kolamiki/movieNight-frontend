@@ -1,14 +1,15 @@
 .next-button {
   font-family: Antonio;
 }
+
 .p-button {
   font-family: Antonio;
   background: black;
-  border-color: #222222;
+  border: 1px solid white;
 }
 
-.p-button.p-button-secondary:not(:disabled):hove {
-  background: #222222;
+.p-button.p-button-secondary:not(:disabled):hover {
+  background: #2a2a2a;
 }
 
 .p-stepper-title {
@@ -20,32 +21,36 @@
 .p-stepper-number {
   font-family: Antonio;
   border-radius: 0px;
-  border: 1px solid;
-  border-color: white;
+  border: 2px solid white;
   font-size: 20px;
-  /* background-color: black; */
-}
-
-.p-stepper-header.p-highlight .p-stepper-number {
   background-color: black;
   color: white;
 }
 
+.p-stepper-header.p-highlight .p-stepper-number {
+  background-color: white;
+  color: black;
+}
+
 .p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-separator {
-  background-color: black;
+  background-color: white;
 }
 
 .p-dialog-header {
   background: #222222;
+  color: white;
+  border-bottom: 2px solid white;
 }
 
 .p-dialog-content {
   background: #222222;
+  color: white;
 }
 
 .p-stepper-action {
   background: #222222;
 }
+
 .p-stepper-panels {
   background-color: #222222;
 }

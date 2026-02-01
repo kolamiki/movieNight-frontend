@@ -1,24 +1,64 @@
 .triangle {
-  position: relative;
-  width: 25px;
-  left: 35px;
-  height: 0;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-top: 50px solid white;
+  display: none;
+  /* Removing the triangle for cleaner look */
 }
 
 .location-frame {
   display: flex;
   position: relative;
   flex-direction: row;
-  justify-content: center; /* Wyśrodkowanie poziome */
-  align-items: center; /* Wyśrodkowanie pionowe */
-  border: 3.5px solid;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  border: 4px solid white;
   color: white;
-  font-family: Antonio;
-  font-size: 35px;
-  width: 110px;
-  height: 110px;
-  text-align: center; /* Dodatkowe wyśrodkowanie tekstu */
+  font-family: 'Antonio', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  /* Reduced from 35px */
+  padding: 15px;
+  /* Equal padding */
+  border-radius: 0px;
+  /* Sharp corners */
+  width: 120px;
+  /* Fixed width */
+  min-width: 0;
+  /* Remove min-width constraint */
+  aspect-ratio: 1 / 1;
+  /* Force square */
+  height: auto;
+  text-align: center;
+  box-shadow: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Triangle Pointer */
+.location-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid white;
+  /* Matching border color */
+}
+
+/* Inner Black Triangle to mask border if needed, or just solid white triangle? 
+   The mock shows a white triangle with black text inside usually? 
+   Actually the mock shows the box has white border, black bg. 
+   The triangle should likely be black with white border. 
+   css triangle with border is tricky. 
+   Simpler approach: Just a solid white triangle for now, or use clip-path on a square div.
+   Let's try a simple white arrow for now as an accent.
+*/
+
+.location-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

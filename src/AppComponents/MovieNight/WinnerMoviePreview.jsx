@@ -3,9 +3,11 @@ import { Carousel } from "primereact/carousel";
 
 import "./WinnerMoviePreview.css";
 
-function WinnerMoviePreview({ apiOrigin, currentMovieNightWinnerDetails }) {
-  console.log("Winner Movie details", currentMovieNightWinnerDetails);
-
+function WinnerMoviePreview({
+  apiOrigin,
+  currentMovieNightWinnerDetails,
+  movieNightDescription,
+}) {
   function structure_winner_movie_details(
     apiOrigin,
     currentMovieNightWinnerDetails
@@ -44,20 +46,43 @@ function WinnerMoviePreview({ apiOrigin, currentMovieNightWinnerDetails }) {
     return <>{display_proper_movie_detail(winnerMovie)}</>;
   };
 
+  function render_vote_info() {
+    return (
+      <>
+        <h1 className="winner-movie-header">ZAGŁOSUJ</h1>
+        <div className="winner-movie-details-or-vote film-card">
+          <div className="winner-movie-details-or-vote vote">
+            {movieNightDescription}
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function render_winner_movie_preview() {
+    return (
+      <>
+        <h1 className="winner-movie-header">OGLĄDAMY</h1>
+        <Carousel
+          className="winner-movie-details-or-vote"
+          value={structure_winner_movie_details(
+            apiOrigin,
+            currentMovieNightWinnerDetails
+          )}
+          numVisible={1}
+          numScroll={1}
+          orientation="horizontal"
+          itemTemplate={winnerMovieTemplate}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="winner-movie-content">
-      <h1 className="winner-movie-header">OGLĄDAMY</h1>
-      <Carousel
-        className="movie-details-carousel"
-        value={structure_winner_movie_details(
-          apiOrigin,
-          currentMovieNightWinnerDetails
-        )}
-        numVisible={1}
-        numScroll={1}
-        orientation="horizontal"
-        itemTemplate={winnerMovieTemplate}
-      />
+      {currentMovieNightWinnerDetails
+        ? render_winner_movie_preview()
+        : render_vote_info()}
     </div>
   );
 }

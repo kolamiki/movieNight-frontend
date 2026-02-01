@@ -15,8 +15,8 @@ const primeReactConfig = {
 
 const root = ReactDOM.createRoot(document.getElementById("WieczorekFilmowy"));
 
-const foo = document.getElementsByTagName("WieczorekFilmowy")[0];
-const apiorigin = foo.attributes?.getNamedItem("apiorigin")?.value;
+const foo = document.getElementById("WieczorekFilmowy");
+const apiorigin = foo?.getAttribute("apiorigin");
 
 // console.log("apiOrigin", document);
 
