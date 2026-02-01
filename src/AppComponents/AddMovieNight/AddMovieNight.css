@@ -39,7 +39,7 @@
 .p-dialog-header {
   background: #222222;
   color: white;
-  border-bottom: 2px solid white;
+  border-bottom: none;
 }
 
 .p-dialog-content {
