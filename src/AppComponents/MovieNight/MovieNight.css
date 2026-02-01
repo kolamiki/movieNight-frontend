@@ -1,5 +1,4 @@
-.movie-night-order {
-}
+.movie-night-order {}
 
 .movie-night-position {
   display: flex;
@@ -11,6 +10,20 @@
   justify-content: center;
   /* overflow-y: auto; */
 }
+
+.movie-night-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.winner-row {
+  grid-column: 1 / 2;
+}
+
+.survey-row {
+  grid-column: 2 / 3;
+}
+
 /* .movie-night-position {
   display: flex;
   flex-direction: column;

@@ -2,11 +2,11 @@ import React from "react";
 
 import "./MovieNote.css";
 
-function MovieNote({ movieNote }) {
+function MovieNote({ movieNote, showNumber = true }) {
   // Component to show movie note (number) and it square representation
   return (
     <div className="movie-note-position">
-      <NumericalNote>{movieNote}</NumericalNote>
+      {showNumber && <NumericalNote>{movieNote}</NumericalNote>}
       <NoteSquares movieRating={movieNote} />
     </div>
   );
@@ -29,9 +29,8 @@ function NoteSquares({ movieRating }) {
       return { backgroundColor: "white" };
     } else if (squareIndex === fullSquares + 1 && fractionalPart > 0) {
       return {
-        background: `linear-gradient(to right, white ${
-          fractionalPart * 100
-        }%, transparent ${fractionalPart * 100}%)`,
+        background: `linear-gradient(to right, white ${fractionalPart * 100
+          }%, transparent ${fractionalPart * 100}%)`,
       };
     }
     return {};

@@ -79,15 +79,15 @@ function MovieNight({
           <MovieNightDate>{movieNightDetails?.date}</MovieNightDate>
         </div>
 
-        <div class="grid">
-          <div class="col-5">
+        <div className="movie-night-grid">
+          <div className="winner-row">
             <WinnerMoviePreview
               apiOrigin={apiOrigin}
               currentMovieNightWinnerDetails={movieNightDetails?.winnerMovie}
               movieNightDescription={movieNightDetails?.description}
             />
           </div>
-          <div class="col-7">
+          <div className="survey-row">
             <MovieSurveyResults
               apiOrigin={apiOrigin}
               movieNightCategory={movieNightDetails?.categoryName}

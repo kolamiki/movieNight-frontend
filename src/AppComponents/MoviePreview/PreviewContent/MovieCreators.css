@@ -1,30 +1,70 @@
 .creators-column {
   display: flex;
-  position: relative;
   flex-direction: column;
-  font-family: Antonio;
-  font-size: 20px;
-  color: white;
-  margin-top: -90px;
-  width: 500px;
+  gap: 8px;
+  width: 100%;
 }
 
-.cast-header {
+.creator-row {
   display: flex;
-  margin-top: -10px;
-  flex-direction: column;
+  align-items: baseline;
+  width: 100%;
+  gap: 10px;
+}
+
+.creator-title {
+  font-size: 1.1rem;
+  color: #ccc;
+  white-space: nowrap;
+}
+
+.creator-separator {
+  flex-grow: 1;
+  border-bottom: 2px dotted #555;
+  position: relative;
+  top: -4px;
+  /* Move up slightly to align with text baseline */
+  opacity: 0.5;
+}
+
+.creator-name {
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+  text-align: right;
+  white-space: nowrap;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Internal Cast section if used directly */
+.cast-section-internal {
+  margin-top: 20px;
+}
+
+.section-header-internal {
+  text-transform: uppercase;
+  border-bottom: 1px dashed #555;
+  display: inline-block;
+  color: #bbb;
+}
+
+.cast-grid-internal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   align-items: center;
 }
 
-.cast-row {
-  display: flex;
-  flex-direction: row;
-  margin-top: -20px;
-  margin-right: 30px;
-  justify-content: space-evenly;
+.cast-name-item {
+  white-space: nowrap;
 }
 
-.cast-column {
-  display: flex;
-  flex-direction: column;
+.cast-separator-square {
+  font-size: 0.6rem;
+  color: #e50914;
+  /* Netflix Red or similar accent */
+  display: inline-block;
+  vertical-align: middle;
 }

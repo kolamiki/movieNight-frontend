@@ -116,6 +116,7 @@ function MovieSurveyCandidate({
     <>
       <div className="movie-candidate-row">
         <img
+          className="movie-candidate-cover"
           src={moviePosterMini}
           alt={movieTitle}
           onClick={() => {

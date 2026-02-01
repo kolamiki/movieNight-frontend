@@ -43,7 +43,7 @@ function AddMovieNightWindow({
     // First, let's segregate movie night data
 
     let movieNightData;
-    const IS_TEST_ACTIVE = true;
+    const IS_TEST_ACTIVE = false;
 
     if (IS_TEST_ACTIVE) {
       movieNightData = testMovieNightData;

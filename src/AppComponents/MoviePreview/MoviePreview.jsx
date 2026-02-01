@@ -1,92 +1,81 @@
 import React, { useEffect, useState } from "react";
-
 import { Dialog } from "primereact/dialog";
 import MoviePreviewContent from "./PreviewContent/MoviePreviewContent";
-
 import "./MoviePreview.css";
 
+/**
+ * MoviePreview Component
+ * 
+ * Displays detailed information about a movie in a modal dialog.
+ * It first attempts to fetch data from the local database. 
+ * If not found, it falls back to fetching from an external source (IMDb/TMDB) via the backend.
+ * 
+ * @param {string} apiOrigin - Base URL for the API
+ * @param {string} movieID - ID of the movie to display
+ * @param {boolean} isPreviewActive - Controls visibility of the dialog
+ * @param {function} setIsPreviewActive - State setter for dialog visibility
+ */
 function MoviePreview({
   apiOrigin,
   movieID,
   isPreviewActive,
   setIsPreviewActive,
 }) {
-  //Na ten moment komponent działa tylko po przyjęciu movieID.
-  // Sprawdź, czy film o wpisanym ID występuje w bazie danych, w przeciwnym wypadku pobierz dane z imdb przy pomocy viewMovieDetails
-
   const [isLoading, setIsLoading] = useState(true);
-  const [movieDetails, setMovieDetails] = useState({});
+  const [movieDetails, setMovieDetails] = useState(null);
 
-  async function get_movie_details(apiOrigin, movieID) {
-    // This function fetches movie details from the database or IMDb
-    // depending on the movieID provided
-    // In the first step, we try to fetch the movie from the local database
-    try {
-      const response = await fetch(`${apiOrigin}/getMovieFromDB/${movieID}/`);
+  useEffect(() => {
+    if (!movieID || !isPreviewActive) return;
 
-      if (!response.ok) {
-        throw new Error(`Błąd HTTP: ${response.status}`);
-      }
+    const fetchMovieDetails = async () => {
+      setIsLoading(true);
+      try {
+        // 1. Try fetching from local database
+        const dbResponse = await fetch(`${apiOrigin}/getMovieFromDB/${movieID}/`);
 
-      const data = await response.json();
+        if (dbResponse.ok) {
+          const dbData = await dbResponse.json();
+          if (dbData.movieID) {
+            setMovieDetails(dbData);
+            setIsLoading(false);
+            return;
+          }
+        }
 
-      if (data.movieID) {
-        setMovieDetails(data);
+        // 2. If not in DB, fetch from External API (TMDB via Backend)
+        console.log("Movie not in DB, fetching from external source...");
+        const externalResponse = await fetch(`${apiOrigin}/viewMovieDetails/${movieID}/`);
+
+        if (externalResponse.ok) {
+          const externalData = await externalResponse.json();
+          setMovieDetails(externalData.movieDetails);
+        } else {
+          console.error("Failed to fetch movie details from external source.");
+        }
+
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      } finally {
         setIsLoading(false);
-        return; // Finish function if the movie is found in the local database
-      } else {
-        // throw new Error("Film nie znaleziony w lokalnej bazie");
       }
-    } catch (error) {
-      // console.log(
-      //   "Błąd lub brak danych w bazie lokalnej. Szukamy w IMDb",
-      //   error
-      // );
-    }
+    };
 
-    // If the movie is not found in the local database, we fetch it from IMDb
-    try {
-      console.log("Pobieramy dane z IMDb...");
-      const response = await fetch(`${apiOrigin}/viewMovieDetails/${movieID}/`);
-
-      if (!response.ok) {
-        // throw new Error(
-        //   `Nie udało się pobrać danych z IMDb: ${response.status}`
-        // );
-      }
-
-      const data = await response.json();
-      setMovieDetails(data.movieDetails);
-      // console.log("Fetched data", data);
-    } catch (error) {
-      // console.error("Błąd podczas pobierania danych z IMDb:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(
-    function () {
-      // Run get_movie_details function
-      get_movie_details(apiOrigin, movieID);
-    },
-    [movieID]
-  );
+    fetchMovieDetails();
+  }, [apiOrigin, movieID, isPreviewActive]);
 
   return (
     <Dialog
       visible={isPreviewActive}
       onHide={() => setIsPreviewActive(false)}
-      style={{
-        fontFamily: "Antonio",
-        width: "840px",
-        height: "850px",
-        background: "#222222",
-      }}
+      header={movieDetails?.title || "Szczegóły filmu"}
+      className="movie-preview-dialog" // Moved inline styles to CSS class
       draggable={false}
+      dismissableMask
     >
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="flex justify-content-center align-items-center h-full">
+          <i className="pi pi-spin pi-spinner" style={{ fontSize: '2rem', color: '#fff' }}></i>
+        </div>
       ) : (
         <div className="movie-preview-content-position">
           <MoviePreviewContent movieDetails={movieDetails} />

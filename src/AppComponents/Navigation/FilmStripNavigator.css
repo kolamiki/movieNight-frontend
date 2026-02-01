@@ -1,0 +1,162 @@
+.film-strip-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    /* Adjust based on desired size */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 70%, transparent 100%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    /* Let clicks pass through area above strip if needed, but strip itself needs events */
+}
+
+.film-strip-track {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 50%;
+    /* Large padding to allow first/last items to be centered */
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    scrollbar-width: none;
+    /* Firefox */
+    pointer-events: auto;
+    cursor: grab;
+}
+
+.film-strip-track::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+.film-strip-track:active {
+    cursor: grabbing;
+}
+
+/* FILM FRAME DESIGN */
+.film-frame {
+    position: relative;
+    flex: 0 0 100px;
+    /* Width of a frame */
+    height: 140px;
+    /* Height of a frame (including perforations area) */
+    background-color: #111;
+    border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.6;
+    transform: scale(0.9);
+    border-radius: 4px;
+}
+
+.film-frame:hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+    border-color: #555;
+}
+
+.film-frame.active {
+    opacity: 1;
+    transform: scale(1.1);
+    border-color: #e50914;
+    /* Netflix red / Cinema red */
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+    z-index: 10;
+}
+
+/* PERFORATIONS (Holes) */
+.perforation {
+    height: 12px;
+    width: 100%;
+    background-image: radial-gradient(circle, transparent 25%, #111 26%);
+    /* Inverted logic to make holes? easier to just use pseudo-elements for holes */
+    background-size: 15px 15px;
+    background-repeat: repeat-x;
+    /* Simpler approach: white blocks on black bg to look like holes, or transparent holes on black strip. 
+     Since the background behind the strip is likely dark, we can make 'white' holes that look like light shining through, 
+     OR just black bar with white squares. let's try white squares on black bar.
+  */
+    background: #000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* Use pseudo elements for actual holes if we want them consistent specific dots */
+.perforation::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 60%;
+    background-image: repeating-linear-gradient(90deg,
+            #333 0,
+            #333 6px,
+            transparent 6px,
+            transparent 14px);
+    /* This creates a dashed look. */
+}
+
+/* CONTENT AREA (Poster/Text) */
+.frame-content {
+    flex: 1;
+    background: #222;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frame-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.frame-category {
+    padding: 5px;
+    text-align: center;
+    color: #fff;
+    font-family: 'Antonio', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+/* ACTIVE GLOW OVERLAY */
+.frame-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
+    pointer-events: none;
+}
+
+/* DATE LABEL */
+.frame-date {
+    position: absolute;
+    bottom: -25px;
+    /* Push outside the frame */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: #ccc;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.film-frame.active .frame-date {
+    opacity: 1;
+}

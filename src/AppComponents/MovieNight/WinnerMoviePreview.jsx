@@ -50,7 +50,7 @@ function WinnerMoviePreview({
     return (
       <>
         <h1 className="winner-movie-header">ZAGŁOSUJ</h1>
-        <div className="winner-movie-details-or-vote film-card">
+        <div className="winner-movie-details-or-vote ">
           <div className="winner-movie-details-or-vote vote">
             {movieNightDescription}
           </div>

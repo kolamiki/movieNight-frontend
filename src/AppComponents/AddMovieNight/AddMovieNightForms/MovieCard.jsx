@@ -14,6 +14,7 @@ function MovieCard({
   candidateKey,
   loaderKey,
   searcherKey,
+  onCardClick,
 }) {
   const [isPreviewActive, setIsPreviewActive] = useState(false);
 
@@ -28,14 +29,7 @@ function MovieCard({
         {[...Array(3)].map((_, index) => (
           <div
             key={index}
-            className="tape-block"
-            style={{
-              backgroundColor: isClickedFoundMovie
-                ? "black"
-                : "rgb(34, 34, 34)",
-              border: isClickedFoundMovie ? "1px solid" : "",
-              borderColor: isClickedFoundMovie ? "black" : "",
-            }}
+            className={`tape-block ${isClickedFoundMovie ? "selected" : ""}`}
           ></div>
         ))}
       </div>
@@ -43,54 +37,38 @@ function MovieCard({
   }
 
   function render_empty_candidate(key) {
-    // This function renders the field with
-
     return (
       <div className="empty-candidate-record fade-in">Kandydat {key + 1}</div>
     );
   }
 
   function render_movie_data(imgAddress, title) {
+    if (!title) return null;
     // Due to the date of production is a part of fetched title, we have to separate it from original movie title
-    const movieTitle = title.split(" (")[0];
-    const yearOfProduction = title.split(" (")[1];
+    const parts = title.split(" (");
+    const movieTitle = parts[0];
+    const yearOfProduction = parts[1] ? parts[1] : "";
+
     return (
       <>
-        <div
-          className="movie-card-cover-column fade-in"
-          // class="animate__animated animate__fadeIn"
-        >
+        <div className="movie-card-cover-column fade-in">
           <img
             src={imgAddress}
             alt={`${title} - cover mini`}
-            // style={{ height: "100%" }}
           />
         </div>
-        <div
-          className="movie-card-title-and-button fade-in"
-          // class="animate__animated animate__fadeIn"
-        >
-          <p
-            className="movie-card-title fade-in"
-            style={{
-              display: "flex",
-              position: "relative",
-              // width: "100%",
-            }}
-          >
+        <div className="movie-card-title-and-button fade-in">
+          <p className="movie-card-title fade-in">
             {movieTitle.length > 17
               ? `${movieTitle.slice(0, 13)}... (${yearOfProduction}`
               : title}
           </p>
           <Button
-            className="fade-in"
-            style={{
-              color: "black",
-              backgroundColor: "white",
-              fontSize: "15px",
-              // marginTop: "2px",
+            className="movie-card-preview-btn fade-in"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePreviewClick();
             }}
-            onClick={() => handlePreviewClick()}
           >
             Podgląd
           </Button>
@@ -102,15 +80,12 @@ function MovieCard({
   function render_loading(key) {
     if (key === "loaderPicture")
       return (
-        // <div class="animate__animated animate__fadeIn">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif"
           alt="loader-picture"
           className="loading-picture fade-in"
         />
-        // </div>
       );
-    //https://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif
     else if (key === "descriptionTop")
       return (
         <p
@@ -172,28 +147,27 @@ function MovieCard({
   }
 
   return (
-    // <div class="animate__animated animate__fadeIn">
     <>
       <div className="movie-frame-look">
         {render_film_tape_blocks()}
         <div
           className="movie-card"
-          // onClick={() => handleOnClick()}
+          onClick={onCardClick}
           style={{
             backgroundColor: isClickedFoundMovie
               ? "black"
               : isClickedMovieCandidate
-              ? "grey"
-              : "",
+                ? "grey"
+                : "",
           }}
         >
           {!imgAddress && !title && !loaderKey && !searcherKey
             ? render_empty_candidate(candidateKey)
             : loaderKey
-            ? render_loading(loaderKey)
-            : searcherKey
-            ? render_search(searcherKey)
-            : render_movie_data(imgAddress, title)}
+              ? render_loading(loaderKey)
+              : searcherKey
+                ? render_search(searcherKey)
+                : render_movie_data(imgAddress, title)}
         </div>
 
         {render_film_tape_blocks()}
@@ -208,7 +182,6 @@ function MovieCard({
         />
       )}
     </>
-    // </div>
   );
 }
 

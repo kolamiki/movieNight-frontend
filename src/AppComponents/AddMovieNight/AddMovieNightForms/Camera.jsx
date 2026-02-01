@@ -117,23 +117,19 @@ function Camera({ apiOrigin }) {
     return fetchedMovies.map((movie, key) => {
       // console.log("movie id", movie.id);
       return (
-        <div
-          onClick={() => {
-            // console.log(key);
+        <MovieCard
+          apiOrigin={apiOrigin}
+          key={movie.id}
+          imgAddress={movie.cover}
+          title={movie.previewTitle}
+          id={movie.id}
+          isClickedFoundMovie={
+            movie.id === selectedMovieFromList?.id ? true : false
+          }
+          onCardClick={() => {
             handleOnSelectMovie(movie);
           }}
-        >
-          <MovieCard
-            apiOrigin={apiOrigin}
-            key={movie.id}
-            imgAddress={movie.cover}
-            title={movie.previewTitle}
-            id={movie.id}
-            isClickedFoundMovie={
-              movie.id === selectedMovieFromList?.id ? true : false
-            }
-          />
-        </div>
+        />
       );
     });
   }
@@ -147,25 +143,21 @@ function Camera({ apiOrigin }) {
           return movie === "" ? (
             <MovieCard key={key + 5 * key} candidateKey={key} />
           ) : (
-            <div
-              onClick={() => {
-                // console.log(key);
+            <MovieCard
+              apiOrigin={apiOrigin}
+              title={movie.previewTitle}
+              imgAddress={movie.cover}
+              key={movie.id + 11 * movie.id}
+              id={movie.id}
+              isClickedMovieCandidate={
+                movie.id === selectedMovieFromCandidatesList?.id
+                  ? true
+                  : false
+              }
+              onCardClick={() => {
                 handleOnSelectCandidate(movie);
               }}
-            >
-              <MovieCard
-                apiOrigin={apiOrigin}
-                title={movie.previewTitle}
-                imgAddress={movie.cover}
-                key={movie.id + 11 * movie.id}
-                id={movie.id}
-                isClickedMovieCandidate={
-                  movie.id === selectedMovieFromCandidatesList?.id
-                    ? true
-                    : false
-                }
-              />
-            </div>
+            />
           );
         })}
       </div>

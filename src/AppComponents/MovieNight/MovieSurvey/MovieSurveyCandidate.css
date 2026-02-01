@@ -13,3 +13,10 @@
   align-items: center;
   display: flex;
 }
+
+.movie-candidate-cover {
+  height: 150px;
+  width: auto;
+  border-radius: 4px;
+  margin-right: 15px;
+}
