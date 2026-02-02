@@ -59,3 +59,31 @@
   box-shadow: none;
   padding: 10px;
 }
+
+/* Custom styled toast for dark movie theme */
+.custom-toast .p-toast-message {
+  background: #141414;
+  color: white;
+  border: 1px solid #333;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-toast .p-toast-summary {
+  font-family: 'Antonio', sans-serif !important;
+  color: #e50914;
+  /* Netflix Red */
+  font-size: 1.1rem;
+}
+
+.custom-toast .p-toast-detail {
+  color: #ccc;
+}
+
+.custom-toast .p-toast-icon-close {
+  color: #999;
+}
+
+.custom-toast .p-toast-icon-close:hover {
+  color: white;
+  background: transparent;
+}

@@ -10,12 +10,17 @@ import { useEffect, useRef, useState } from "react";
 import Login from "./AppComponents/UserProfile/Login";
 import AddMovieNightWindow from "./AppComponents/AddMovieNight/AddMovieNightWindow";
 import { AddMovieNightProvider } from "./contexts/AddMovieNightContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import Register from "./AppComponents/Authentication/Register";
 import axios from "axios";
+import { Toast } from "primereact/toast";
 import FilmStripNavigator from "./AppComponents/Navigation/FilmStripNavigator";
+
 function App({ apiOrigin }) {
   const movieNightRef = useRef(null);
 
   const [loginActive, setLoginActive] = useState(false);
+  const [registerActive, setRegisterActive] = useState(false);
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
   const [isAddMovieNightActive, setIsMovieNightActive] = useState(false);
 
@@ -32,13 +37,8 @@ function App({ apiOrigin }) {
   async function get_movieNights_list() {
     const response = await fetch(`${apiOrigin}/showMovieNights/`);
     const data = await response.json();
-    // console.log("List of Movie Nights", data);
     return data;
   }
-
-  // fetch(`${apiOrigin}api/showMovieNights/`).then((response) =>
-  //   response.json()
-  // );
 
   useEffect(function () {
     const fetchMovieNights = async () => {
@@ -47,7 +47,6 @@ function App({ apiOrigin }) {
       console.log("fetchedMovieNightsList", fetchedMovieNightsList);
     };
 
-    fetchMovieNights();
     fetchMovieNights();
   }, []);
 
@@ -61,15 +60,23 @@ function App({ apiOrigin }) {
     }
   }, []);
 
+  // Toast reference
+  const toast = useRef(null);
 
+  const showToast = (severity, summary, detail) => {
+    toast.current.show({ severity, summary, detail, life: 3000 });
+  };
 
   return (
-    <>
+    <AuthProvider showToast={showToast}>
+      <Toast ref={toast} position="top-right" className="custom-toast" />
       <div className="gradient-background">
         <Header
           apiOrigin={apiOrigin}
           loginActive={loginActive}
           setLoginActive={setLoginActive}
+          registerActive={registerActive}
+          setRegisterActive={setRegisterActive}
           addBookedDaysActive={addBookedDaysActive}
           setAddBookedDaysActive={setAddBookedDaysActive}
           addMovieNightActive={isAddMovieNightActive}
@@ -78,6 +85,13 @@ function App({ apiOrigin }) {
           setIsUserLogged={setIsUserLogged}
           setLoggedUser={setLoggedUser}
         />
+
+        <Register
+          registerActive={registerActive}
+          setRegisterActive={setRegisterActive}
+        />
+
+
         {/* <div className="content"> */}
         <Login
           apiOrigin={apiOrigin}
@@ -85,6 +99,7 @@ function App({ apiOrigin }) {
           setLoginActive={setLoginActive}
           setIsUserLogged={setIsUserLogged}
           setLoggedUser={setLoggedUser}
+          setRegisterActive={setRegisterActive}
         />
         {movieNightsList.length > 0 && (
           <MovieNight
@@ -117,7 +132,7 @@ function App({ apiOrigin }) {
         {/* <CalendarWithRanges /> */}
         {/* </div> */}
       </div>
-    </>
+    </AuthProvider>
   );
 }
 

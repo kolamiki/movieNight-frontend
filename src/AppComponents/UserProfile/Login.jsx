@@ -1,16 +1,10 @@
-import getCSRFToken from "../get_token";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Dialog } from "primereact/dialog";
-import { Card } from "primereact/card";
-
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-
-import axios from "axios";
-
-import "./Login.css";
 import { Button } from "primereact/button";
-//!! DOPRACOWAĆ FORMULARZ LOGOWANIA
+import AuthContext from "../../contexts/AuthContext";
+import "./Login.css";
 
 function Login({
   apiOrigin,
@@ -18,41 +12,41 @@ function Login({
   setLoginActive,
   setIsUserLogged,
   setLoggedUser,
+  setRegisterActive,
 }) {
+  const { loginUser, showToast } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(false);
+    setError(false); // Reset error on new submission attempt
 
-    const csrfToken = getCSRFToken();
-    try {
-      const response = await axios.post(
-        `${apiOrigin}/loginToken/`,
-        {
-          username,
-          password,
-        },
-        { headers: { "X-CSRFToken": csrfToken } }
-      );
+    // Create a synthetic event or adjust loginUser to accept credentials directly
+    // Since loginUser in AuthContext expects an event 'e' with e.target.username.value,
+    // we need to be careful. However, loginUser implementation:
+    // const loginUser = async (e) => {
+    //    if (e && e.preventDefault) e.preventDefault();
+    //    ... body: JSON.stringify({ username: e.target.username.value ... })
+    // }
+    // This relies on the form submit event.
 
-      const { access, refresh } = response.data;
-      localStorage.setItem("accessToken", access);
-      localStorage.setItem("refreshToken", refresh);
+    // Let's call loginUser with the event.
+    const success = await loginUser(e);
+
+    if (success) {
       localStorage.setItem("username", username);
       setIsUserLogged(true);
       setLoggedUser(username);
       // Clear states
       setUsername("");
       setPassword("");
-      alert("Successful login");
-
+      if (showToast) showToast('success', 'Sukces', 'Zalogowano pomyślnie!');
       // Close login window
       setLoginActive(false);
-    } catch (err) {
-      setError("Nieprawidłowe dane logowania");
+    } else {
+      setError(true);
     }
   };
 
@@ -62,21 +56,12 @@ function Login({
         <h3>Nie masz jeszcze konta?</h3>
         Zarejestruj się w{" "}
         <b>
-          <u>tym miejscu</u>
+          <u onClick={() => { setRegisterActive(true); setLoginActive(false); }} style={{ cursor: "pointer" }}>tym miejscu</u>
         </b>{" "}
         i weź udział w swoim pierwszym wieczorku.
       </div>
     );
   }
-
-  useEffect(
-    function () {
-      if (error) {
-        setError(false);
-      }
-    },
-    [username, password]
-  );
 
   return (
     <Dialog
@@ -89,47 +74,49 @@ function Login({
         setError(false);
       }}
       draggable={false}
-      style={{ fontFamily: "Antonio", width: "450px", height: "40%" }}
-      header="ZALOGUJ SIĘ"
+      className="login-dialog"
     >
-      <div className="login-content">
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <form onSubmit={handleSubmit} className="form-position">
+      <div className="login-form-wrapper">
+        <h2 className="login-title">ZALOGUJ SIĘ</h2>
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
           {/* Login */}
-          <div className="p-inputgroup flex-1">
-            <span className="p-inputgroup-addon">
-              <i className="pi pi-user"></i>
-            </span>
-            <InputText
+          <div className="form-group">
+            <label>Login</label>
+            <input
+              type="text"
+              name="username"
+              className={`form-control ${error ? 'input-error' : ''}`}
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                if (error) setError(false);
+              }}
               required
             />
           </div>
-          <br />
+
           {/* Hasło */}
-          <div className="p-inputgroup flex-1">
-            <span className="p-inputgroup-addon">
-              <i className="pi pi-lock"></i>
-            </span>
-            {/* <label>Hasło:</label> */}
-            <Password
+          <div className="form-group">
+            <label>Hasło</label>
+            <input
+              type="password"
+              name="password"
+              className={`form-control ${error ? 'input-error' : ''}`}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              // toggleMask
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error) setError(false);
+              }}
               required
-              feedback={false}
             />
           </div>
-          <br />
-          <Button type="submit" className="login-button">
+
+          <button type="submit" className="submit-btn">
             Zaloguj się
-          </Button>
-          {/* <button type="submit">Zaloguj się</button> */}
+          </button>
         </form>
+        {render_sign_in()}
       </div>
-      <br />
-      {render_sign_in()}
     </Dialog>
   );
 }

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import "animate.css";
 
 import { Card } from "primereact/card";
 import { Menubar } from "primereact/menubar";
 import "primeicons/primeicons.css";
+import AuthContext from "../../contexts/AuthContext";
 
-// import "./index.css";
 
 import "./Header.css";
-import { Button } from "primereact/button";
-// import { classNames } from "primereact/utils";
+
 
 function Header({
   apiOrigin,
   loginActive,
   setLoginActive,
+  registerActive,
   isUserLogged,
   setIsUserLogged,
   addBookedDaysActive,
@@ -23,28 +23,10 @@ function Header({
   setMovieNightActive,
   setLoggedUser,
 }) {
+  const { userProfile, logoutUser } = useContext(AuthContext);
 
-  const check_if_user_is_logged = () => {
-    const username = localStorage.getItem("username");
-
-    const isLogged = username !== null;
-    if (isLogged) {
-      setIsUserLogged(true);
-      setLoggedUser(username);
-    }
-  };
-
-  // Wywołanie efektu na start i przy zmianie `isUserLogged`
-  useEffect(() => {
-    check_if_user_is_logged();
-    console.log("Effect z isUserLogged");
-  }, [isUserLogged]);
-
-  // Wywołanie tylko raz przy załadowaniu komponentu
-  useEffect(() => {
-    check_if_user_is_logged();
-    console.log("Effect bez isUserLogged");
-  }, []);
+  // Determine if user is logged based on AuthContext
+  const isContextLogged = !!userProfile;
 
   return (
     <Card className="header-style">
@@ -53,14 +35,19 @@ function Header({
         <AddWieczorek setMovieNightActive={setMovieNightActive} />
         <AvailableDays setAddBookedDaysActive={setAddBookedDaysActive} />
 
-        {isUserLogged ? (
+        {isContextLogged ? (
           <ProfileShortcut
-            username={localStorage.getItem("username")}
+            username={userProfile?.username || localStorage.getItem("username")}
+            userProfile={userProfile}
+            logoutUser={logoutUser}
             setIsUserLogged={setIsUserLogged}
             setLoggedUser={setLoggedUser}
+            apiOrigin={apiOrigin}
           />
         ) : (
-          <LogIn setLoginActive={setLoginActive} />
+          <div style={{ display: 'flex' }}>
+            <LogIn setLoginActive={setLoginActive} />
+          </div>
         )}
       </div>
     </Card>
@@ -138,15 +125,55 @@ function LogIn({ setLoginActive }) {
   );
 }
 
-function ProfileShortcut({ username, setIsUserLogged, setLoggedUser }) {
+// function SignUp({ setRegisterActive }) {
+//   return (
+//     <div className="login-button" onClick={() => setRegisterActive(true)} style={{ marginLeft: '10px' }}>
+//       <img
+//         className="header-button-image"
+//         src=".\Header_Icons\LogIn_Logo_v1.png"
+//         alt="Sign Up Logo"
+//       />
+//       <p className="header-button-text">Zarejestruj</p>
+//     </div>
+//   );
+// }
+
+function ProfileShortcut({ username, userProfile, logoutUser, setIsUserLogged, setLoggedUser, apiOrigin }) {
+
+  const getAvatarUrl = () => {
+    if (!userProfile?.avatar) return null;
+    if (userProfile.avatar.startsWith('http')) return userProfile.avatar;
+    // Handle relative path. Ensure apiOrigin doesn't have trailing slash if path has leading slash
+    const cleanOrigin = apiOrigin.includes('api') ? apiOrigin.split('/api')[0] : apiOrigin;
+    const cleanPath = userProfile.avatar.startsWith('/') ? userProfile.avatar : `/${userProfile.avatar}`;
+    return `${cleanOrigin}${cleanPath}`;
+  };
+
+  const avatarUrl = getAvatarUrl();
+
+  const rootItemTemplate = (item, options) => {
+    return (
+      <div className="p-menuitem-content header-profile-item" onClick={options.onClick} >
+        {avatarUrl ? (
+          <img src={avatarUrl} alt="Avatar" className="header-avatar" />
+        ) : (
+          <i className="pi pi-user header-avatar-icon"></i>
+        )}
+        <span className="header-username">{item.label}</span>
+        <i className="pi pi-angle-down header-chevron"></i>
+      </div>
+    );
+  }
+
   const menuOptions = [
     {
       label: username,
+      template: rootItemTemplate,
       items: [
         {
           label: "Twój profil",
           icon: "pi pi-user",
-          command: () => alert("Podgląd Profilu jest w trakcie rozbudowy."),
+          command: () => alert(`Ranga: ${userProfile?.rank || 'Nieznana'}`),
         },
         {
           label: "Ustawienia",
@@ -156,31 +183,24 @@ function ProfileShortcut({ username, setIsUserLogged, setLoggedUser }) {
         {
           label: "Wyloguj się",
           icon: "pi pi-sign-out",
-          command: () => logout(),
+          command: () => {
+            if (logoutUser) logoutUser();
+            // Clean up local storage used by App.jsx legacy logic
+            localStorage.removeItem("username");
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            setIsUserLogged(false);
+            setLoggedUser(null);
+          },
         },
       ],
     },
   ];
 
-  function logout() {
-    // Remove items from local storage
-    localStorage.removeItem("username");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    // Change state isLoggedUser to false and
-    setIsUserLogged(false);
-    setLoggedUser(null);
-  }
-
   return (
     <Menubar
-      // style={{
-      //   fontFamily: "Antonio",
-      //   backgroundColor: "black",
-      //   color: "white",
-      // }}
       model={menuOptions}
+      className="profile-menubar"
     />
   );
 }
