@@ -45,8 +45,17 @@ export const AuthProvider = ({ children, showToast }) => {
         }
     }, [authTokens]);
 
-    const loginUser = async (e) => {
+    const loginUser = async (e, credentials = null) => {
         if (e && e.preventDefault) e.preventDefault();
+
+        let username, password;
+        if (credentials) {
+            username = credentials.username;
+            password = credentials.password;
+        } else {
+            username = e.target.username.value;
+            password = e.target.password.value;
+        }
 
         try {
             const response = await fetch(`${apiOrigin}/api/auth/login/`, {
@@ -56,8 +65,8 @@ export const AuthProvider = ({ children, showToast }) => {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    username: e.target.username.value,
-                    password: e.target.password.value
+                    username: username,
+                    password: password
                 })
             });
 
@@ -89,7 +98,7 @@ export const AuthProvider = ({ children, showToast }) => {
     }, [authTokens, fetchUserProfile]);
 
 
-    const registerUser = async (formData) => {
+    const registerUser = async (formData, credentials = null) => {
         try {
             // FormData required for file upload
             const response = await fetch(`${apiOrigin}/api/auth/register/`, {
@@ -98,6 +107,9 @@ export const AuthProvider = ({ children, showToast }) => {
             });
 
             if (response.status === 201) {
+                if (credentials) {
+                    return await loginUser(null, credentials);
+                }
                 return true;
             } else {
                 const data = await response.json();

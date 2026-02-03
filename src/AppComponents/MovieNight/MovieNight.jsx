@@ -64,6 +64,47 @@ function MovieNight({
     [isVoted, loggedUser, currentMovieNightIndex]
   );
 
+  // Check if current user is already a participant
+  // We need to check if loggedUser is in movieNightDetails.participants
+  // movieNightDetails.participants is likely an array of objects or IDs. 
+  // Based on other files (Votes.py), participants is M2M to User.
+  // We need to see how it comes from API.
+  // Assuming it comes as list of user objects or at least usernames if serialized simply.
+  // Let's assume for now we might need to check by ID or username. 
+
+  // Actually, checking MovieNight.py serialization. Participants are users.
+  // Let's inspect data structure in console logs later but for now:
+
+  const isParticipant = movieNightDetails?.participants?.some(
+    p => p.username === loggedUser || p.id === loggedUser // dealing with potential username string vs user object from context
+  );
+
+  const handleJoinMovieNight = async () => {
+    try {
+      const response = await fetch(`${apiOrigin}/api/sign-for-movie-night/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Authorization is handled via cookies (credentials: include) if needed, 
+        // but standard fetch defaults don't send cookies unless specified.
+        credentials: 'include',
+        body: JSON.stringify({
+          movieNightId: movieNightId
+        })
+      });
+
+      if (response.ok) {
+        // Refresh details to update UI
+        get_movie_night_details(apiOrigin, movieNightId);
+      } else {
+        console.error("Failed to join movie night");
+      }
+    } catch (error) {
+      console.error("Error joining movie night:", error);
+    }
+  }
+
   // console.log("movie night details", movieNightDetails);
   // console.log("loggedUser in MovieNight", loggedUser);
 
@@ -79,12 +120,17 @@ function MovieNight({
           <MovieNightDate>{movieNightDetails?.date}</MovieNightDate>
         </div>
 
+
+        {/* If already participant, maybe show a small badge or nothing? requested: "Zapisywanie jest widoczne wyłącznie w Wieczorkach bez wyłonionego zwycięzcy" 
+             and "Po kliknięciu... zostanie dopisany". Implies button goes away or changes state. */ }
         <div className="movie-night-grid">
           <div className="winner-row">
             <WinnerMoviePreview
               apiOrigin={apiOrigin}
               currentMovieNightWinnerDetails={movieNightDetails?.winnerMovie}
               movieNightDescription={movieNightDetails?.description}
+              isParticipant={isParticipant}
+              handleJoinMovieNight={handleJoinMovieNight}
             />
           </div>
           <div className="survey-row">

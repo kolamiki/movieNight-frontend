@@ -23,15 +23,6 @@ function Login({
     e.preventDefault();
     setError(false); // Reset error on new submission attempt
 
-    // Create a synthetic event or adjust loginUser to accept credentials directly
-    // Since loginUser in AuthContext expects an event 'e' with e.target.username.value,
-    // we need to be careful. However, loginUser implementation:
-    // const loginUser = async (e) => {
-    //    if (e && e.preventDefault) e.preventDefault();
-    //    ... body: JSON.stringify({ username: e.target.username.value ... })
-    // }
-    // This relies on the form submit event.
-
     // Let's call loginUser with the event.
     const success = await loginUser(e);
 

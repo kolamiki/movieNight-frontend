@@ -3,7 +3,7 @@ import AuthContext from '../../contexts/AuthContext';
 import { Dialog } from 'primereact/dialog';
 import './Register.css';
 
-const Register = ({ registerActive, setRegisterActive }) => {
+const Register = ({ registerActive, setRegisterActive, setIsUserLogged, setLoggedUser }) => {
     const { registerUser, showToast } = useContext(AuthContext);
 
     const [username, setUsername] = useState('');
@@ -60,9 +60,13 @@ const Register = ({ registerActive, setRegisterActive }) => {
             formData.append('avatar', avatarFile);
         }
 
-        const success = await registerUser(formData);
+        const success = await registerUser(formData, { username, password });
         if (success) {
-            if (showToast) showToast('success', 'Sukces', 'Konto zostało utworzone pomyślnie! Możesz się teraz zalogować.');
+            localStorage.setItem("username", username);
+            if (setIsUserLogged) setIsUserLogged(true);
+            if (setLoggedUser) setLoggedUser(username);
+
+            if (showToast) showToast('success', 'Sukces', 'Konto zostało utworzone pomyślnie! Zostałeś zalogowany.');
             setRegisterActive(false);
         }
     }

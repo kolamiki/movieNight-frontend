@@ -7,6 +7,8 @@ function WinnerMoviePreview({
   apiOrigin,
   currentMovieNightWinnerDetails,
   movieNightDescription,
+  isParticipant,
+  handleJoinMovieNight,
 }) {
   function structure_winner_movie_details(
     apiOrigin,
@@ -53,8 +55,22 @@ function WinnerMoviePreview({
         <div className="winner-movie-details-or-vote ">
           <div className="winner-movie-details-or-vote vote">
             {movieNightDescription}
+            <div className="ticket-button-container">
+              {/* Ticket "Join" Button */}
+              {!currentMovieNightWinnerDetails?.winnerMovie && !isParticipant && (
+
+                <button
+                  className="ticket-button"
+                  onClick={handleJoinMovieNight}
+                >
+                  Zapisz na Wieczorek
+                </button>
+
+              )}
+            </div>
           </div>
         </div>
+
       </>
     );
   }

@@ -89,6 +89,8 @@ function App({ apiOrigin }) {
         <Register
           registerActive={registerActive}
           setRegisterActive={setRegisterActive}
+          setIsUserLogged={setIsUserLogged}
+          setLoggedUser={setLoggedUser}
         />
 
 

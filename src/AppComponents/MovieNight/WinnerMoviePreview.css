@@ -26,6 +26,12 @@
   font-size: 24px;
 }
 
+.ticket-button-container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
 .movie-in-carousel-cover {
   width: 100%;
   /* margin-left: 5%; */
