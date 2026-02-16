@@ -15,6 +15,7 @@ import Register from "./AppComponents/Authentication/Register";
 import axios from "axios";
 import { Toast } from "primereact/toast";
 import FilmStripNavigator from "./AppComponents/Navigation/FilmStripNavigator";
+import UserPanel from "./AppComponents/UserPanel/UserPanel";
 
 function App({ apiOrigin }) {
   const movieNightRef = useRef(null);
@@ -23,6 +24,7 @@ function App({ apiOrigin }) {
   const [registerActive, setRegisterActive] = useState(false);
   const [addBookedDaysActive, setAddBookedDaysActive] = useState(false);
   const [isAddMovieNightActive, setIsMovieNightActive] = useState(false);
+  const [isUserPanelActive, setIsUserPanelActive] = useState(false);
 
   const [loggedUser, setLoggedUser] = useState(null);
 
@@ -84,6 +86,7 @@ function App({ apiOrigin }) {
           isUserLogged={isUserLogged}
           setIsUserLogged={setIsUserLogged}
           setLoggedUser={setLoggedUser}
+          setIsUserPanelActive={setIsUserPanelActive}
         />
 
         <Register
@@ -133,6 +136,13 @@ function App({ apiOrigin }) {
         {/* <PreviousMovieNights /> */}
         {/* <CalendarWithRanges /> */}
         {/* </div> */}
+
+        {/* USER PANEL */}
+        <UserPanel
+          apiOrigin={apiOrigin}
+          isOpen={isUserPanelActive}
+          onClose={() => setIsUserPanelActive(false)}
+        />
       </div>
     </AuthProvider>
   );

@@ -22,6 +22,7 @@ function Header({
   addMovieNightActive,
   setMovieNightActive,
   setLoggedUser,
+  setIsUserPanelActive,
 }) {
   const { userProfile, logoutUser } = useContext(AuthContext);
 
@@ -43,6 +44,7 @@ function Header({
             setIsUserLogged={setIsUserLogged}
             setLoggedUser={setLoggedUser}
             apiOrigin={apiOrigin}
+            setIsUserPanelActive={setIsUserPanelActive}
           />
         ) : (
           <div style={{ display: 'flex' }}>
@@ -138,7 +140,7 @@ function LogIn({ setLoginActive }) {
 //   );
 // }
 
-function ProfileShortcut({ username, userProfile, logoutUser, setIsUserLogged, setLoggedUser, apiOrigin }) {
+function ProfileShortcut({ username, userProfile, logoutUser, setIsUserLogged, setLoggedUser, apiOrigin, setIsUserPanelActive }) {
 
   const getAvatarUrl = () => {
     if (!userProfile?.avatar) return null;
@@ -173,7 +175,7 @@ function ProfileShortcut({ username, userProfile, logoutUser, setIsUserLogged, s
         {
           label: "Twój profil",
           icon: "pi pi-user",
-          command: () => alert(`Ranga: ${userProfile?.rank || 'Nieznana'}`),
+          command: () => setIsUserPanelActive(true),
         },
         {
           label: "Ustawienia",

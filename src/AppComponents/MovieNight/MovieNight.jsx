@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../../contexts/AuthContext";
 
 import { Carousel } from "primereact/carousel";
 import "/node_modules/primeflex/primeflex.css";
@@ -40,6 +41,7 @@ function MovieNight({
   currentMovieNightIndex,
 }) {
   const [isVoted, setIsVoted] = useState(true);
+  const { authTokens } = useContext(AuthContext);
 
   const [movieNightDetails, setMovieNightDetails] = useState(null);
 
@@ -81,13 +83,12 @@ function MovieNight({
 
   const handleJoinMovieNight = async () => {
     try {
-      const response = await fetch(`${apiOrigin}/api/sign-for-movie-night/`, {
+      const response = await fetch(`${apiOrigin}/sign-for-movie-night/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authTokens?.access}`,
         },
-        // Authorization is handled via cookies (credentials: include) if needed, 
-        // but standard fetch defaults don't send cookies unless specified.
         credentials: 'include',
         body: JSON.stringify({
           movieNightId: movieNightId
