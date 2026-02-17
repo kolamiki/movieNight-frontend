@@ -29,7 +29,7 @@ function AddMovieNightWindow({
 
   const { description, title, location, date, pickedMovies } =
     useAddMovieNight();
-
+  console.log(pickedMovies);
   const [locationsList, setLocationsList] = useState([]);
 
   const [savingMovieNightStatus, setSavingMovieNightStatus] =

@@ -207,41 +207,110 @@ function ErrorState() {
     );
 }
 
-/* ---- STATS TAB ---- */
-
 function StatsTab({ stats }) {
     const statCards = [
         {
             icon: "🎟️",
             value: stats.movieNightsParticipated,
-            label: "Wieczorki",
+            label: stats.movieNightsParticipated == 0 ? "Wieczorków" : stats.movieNightsParticipated == 1 ? "Wieczorek" : "Wieczorki",
         },
         {
             icon: "🎬",
             value: stats.movieNightsCreated,
-            label: "Stworzone",
+            label: stats.movieNightsCreated == 0 ? "Wieczorków" : stats.movieNightsCreated == 1 ? "Wieczorek" : "Wieczorki",
         },
         {
             icon: "🗳️",
             value: stats.totalVotes,
-            label: "Głosy",
+            label: stats.totalVotes == 0 ? "Głosów" : "Głosy",
         },
         {
             icon: "🏆",
             value: stats.winningVotes,
-            label: "Trafione",
+            label: stats.winningVotes == 0 ? "Trafionych" : "Trafione",
+        },
+        {
+            icon: "⏱️",
+            value: stats.totalWinningRuntime || "0m",
+            label: "Łącznie obejrzano",
+        },
+    ];
+
+    const rankingSections = [
+        {
+            icon: "🎭",
+            title: "Najczęściej Wybierane Gatunki",
+            items: stats.topVotedGenres || [],
+        },
+        {
+            icon: "📽️",
+            title: "Gatunki Twoich Wieczorków",
+            items: stats.topSelectedGenres || [],
+        },
+        {
+            icon: "🎬",
+            title: "Najczęściej Wybierani Reżyserzy",
+            items: stats.topVotedDirectors || [],
         },
     ];
 
     return (
-        <div className="stats-grid">
-            {statCards.map((card, i) => (
-                <div className="stat-card" key={i}>
-                    <div className="stat-card-icon">{card.icon}</div>
-                    <div className="stat-card-value">{card.value}</div>
-                    <div className="stat-card-label">{card.label}</div>
-                </div>
+        <>
+            <div className="stats-grid">
+                {statCards.map((card, i) => (
+                    <div className="stat-card" key={i}>
+                        <div className="stat-card-icon">{card.icon}</div>
+                        <div className="stat-card-value">{card.value}</div>
+                        <div className="stat-card-label">{card.label}</div>
+                    </div>
+                ))}
+            </div>
+
+            {rankingSections.map((section, si) => (
+                <StatsRankingSection key={si} {...section} />
             ))}
+        </>
+    );
+}
+
+function StatsRankingSection({ icon, title, items }) {
+    if (!items || items.length === 0) {
+        return (
+            <div className="stats-ranking-section">
+                <h3 className="stats-ranking-title">{icon} {title}</h3>
+                <p className="stats-ranking-empty">Brak danych</p>
+            </div>
+        );
+    }
+
+    const maxCount = items[0]?.count || 1;
+
+    return (
+        <div className="stats-ranking-section">
+            <h3 className="stats-ranking-title">{icon} {title}</h3>
+            <div className="stats-ranking-list">
+                {items.map((item, i) => {
+                    const percent = maxCount > 0 ? (item.count / maxCount) * 100 : 0;
+                    const medals = ["🥇", "🥈", "🥉"];
+                    return (
+                        <div className="stats-ranking-item" key={i}>
+                            <span className="stats-ranking-medal">{medals[i] || `${i + 1}.`}</span>
+                            <div className="stats-ranking-info">
+                                <div className="stats-ranking-name-row">
+                                    <span className="stats-ranking-name">{item.name}</span>
+                                    <span className="stats-ranking-count">{item.count} głos{item.count === 1 ? '' : item.count < 5 ? 'y' : 'ów'}</span>
+                                </div>
+                                <div className="stats-ranking-bar-bg">
+                                    <div
+                                        className="stats-ranking-bar-fill"
+                                        style={{ width: `${percent}%` }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }
